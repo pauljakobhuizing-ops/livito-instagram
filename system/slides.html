@@ -52,6 +52,11 @@
 .mid .list li{font-size:50px}
 .mid .row{font-size:48px;padding:34px 28px}
 .mid .sub{font-size:46px}
+.zitat{font-family:'Inter Tight';font-weight:600;font-size:76px;line-height:1.12;letter-spacing:-.01em;color:var(--petrol);margin:0}
+.quelle{font-size:30px;line-height:1.4;color:var(--stein);margin:32px 0 0}
+.ask{margin:72px 0 0;display:flex;flex-direction:column;gap:48px}
+.ask div{display:flex;align-items:center;gap:40px;font-size:46px;line-height:1.35;color:#fff}
+.ask svg{width:84px;height:84px;flex:none}
 </style>
 </head>
 <body>
@@ -65,6 +70,13 @@ const band = () => { const R = 86, step = 2.4*R, n = 8, s = (2*R)/96, y = 95 - 5
 const kopf = (label, i, n) => `<div class="top"><span>${label}</span><span class="nr">${i}/${n}</span></div>`;
 const foot = (dark, hint) => `<div class="foot"><span class="brand">${signet(dark?'#fff':'#1D4442')}<span>Die Livito-Methode</span></span><span class="hint">${hint||'@dielivitomethode'}</span></div>`;
 
+const ICON = { antwort:'<svg viewBox="0 0 48 48" fill="none" stroke="#D6DED8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6C13.5 6 6 13.2 6 22.6c0 4.6 1.9 8.7 5.1 11.7L9.4 42l8.4-3.2c2 .6 4 .9 6.2.9 10.5 0 18-7.3 18-17.1S34.5 6 24 6z"/></svg>',
+  senden:'<svg viewBox="0 0 48 48" fill="none" stroke="#D6DED8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M42 6L5 21l14 6 6 15z"/><path d="M19 27L42 6"/></svg>' };
+const frage = (q, cls, zitat, quelle, text) => ({ label:'Eine Frage zum Geld', n:3, slides:[
+  s=>`${kopf(s.label,1,s.n)}<h1 class="title ${cls}">${q}</h1><div class="grow"></div>${band()}${foot(true,'Wischen →')}`,
+  s=>`${kopf(s.label,2,s.n)}<div class="mid"><p class="zitat">${zitat}</p><p class="quelle">${quelle}</p>${text.map(t=>`<p class="body">${t}</p>`).join('')}</div>${foot(false)}`,
+  s=>`${kopf(s.label,3,s.n)}<div class="mid"><p class="statement">Deine Antwort?</p><div class="ask"><div>${ICON.antwort}<span>Schreib sie in die Kommentare.</span></div><div>${ICON.senden}<span>Oder stell die Frage jemandem, dessen Antwort dich interessiert.</span></div></div></div>${foot(true)}`,
+]});
 const C = {
  notgroschen: { label:'Schritt für Schritt', n:7, slides:[
   s=>`${kopf(s.label,1,s.n)}<h1 class="title">1.500 Euro. Mehr braucht dein erster Notgroschen nicht.</h1><div class="grow"></div>${band()}${foot(true,'Wischen →')}`,
@@ -94,7 +106,7 @@ const C = {
   s=>`${kopf(s.label,3,s.n)}<div class="mid"><h2 class="h">Kein Versprechen auf Reichtum</h2><p class="body">Es geht nicht darum, reich zu werden.</p><p class="body">Es geht darum zu wissen, dass der Kontostand reicht.</p></div>${foot(false)}`,
   s=>`${kopf(s.label,4,s.n)}<div class="mid"><h2 class="h">Woher der Name kommt</h2><p class="body">Livito kommt vom italienischen lievito, Hefe.</p><p class="body">Wie beim Sauerteig: einmal ansetzen, regelmäßig füttern, den Rest erledigt die Zeit.</p></div>${foot(false)}`,
   s=>`${kopf(s.label,5,s.n)}<div class="mid"><h2 class="h">Was dazugehört</h2><ul class="list"><li>Ein Buch</li><li>Sieben Rechner</li><li>Vorlagen zum Ausfüllen</li></ul></div>${foot(false)}`,
-  s=>`${kopf(s.label,6,s.n)}<div class="mid"><p class="statement">Hier gibt es jeden Tag eine Sache, die Ruhe in dein Geld bringt.</p><p class="sub">Folge @dielivitomethode.</p></div>${foot(true)}`,
+  s=>`${kopf(s.label,6,s.n)}<div class="mid"><p class="statement">Hier lernst du Gelassenheit mit Geld.</p><p class="sub">Folge @dielivitomethode.</p></div>${foot(true)}`,
  ]},
  schritte: { label:'Start hier', n:6, slides:[
   s=>`${kopf(s.label,1,s.n)}<h1 class="title">Vier Schritte. In genau dieser Reihenfolge.</h1><div class="grow"></div>${band()}${foot(true,'Wischen →')}`,
@@ -109,7 +121,7 @@ const C = {
   s=>`${kopf(s.label,2,s.n)}<div class="mid"><h2 class="h">Kommt dir das bekannt vor?</h2><ul class="list"><li>Der Dispo ist öfter im Minus als im Plus.</li><li>Ein paar Raten laufen nebenher.</li><li>Die Altersvorsorge steht seit Jahren auf der Liste.</li></ul></div>${foot(false)}`,
   s=>`${kopf(s.label,3,s.n)}<div class="mid"><h2 class="h">Es liegt nicht am Einkommen</h2><p class="body">Finanzielle Gelassenheit entsteht durch Struktur, nicht durch ein hohes Gehalt.</p></div>${foot(false)}`,
   s=>`${kopf(s.label,4,s.n)}<div class="mid"><h2 class="h">Für wen es nicht ist</h2><p class="body">Für alle, die schnell reich werden wollen.</p><p class="body">Und wenn die Raten schon jetzt nicht mehr zu schaffen sind, ist eine Schuldnerberatung der bessere erste Schritt.</p></div>${foot(false)}`,
-  s=>`${kopf(s.label,5,s.n)}<div class="mid"><p class="statement">Ein Schritt nach dem anderen.</p><p class="sub">Hier jeden Tag. Folge @dielivitomethode.</p></div>${foot(true)}`,
+  s=>`${kopf(s.label,5,s.n)}<div class="mid"><p class="statement">Ein Schritt nach dem anderen.</p><p class="sub">Folge @dielivitomethode.</p></div>${foot(true)}`,
  ]},
  satz2: { label:'Ein Satz zum Geld', n:3, slides:[
   s=>`${kopf(s.label,1,s.n)}<h1 class="title m">Was mir über die Jahre gefehlt hat, war etwas anderes: eine Reihenfolge.</h1><p class="attr">Aus dem Buch „Die Livito-Methode“</p><div class="grow"></div>${band()}${foot(true,'Wischen →')}`,
@@ -117,7 +129,10 @@ const C = {
   s=>`${kopf(s.label,3,s.n)}<div class="mid"><p class="statement">Erst das eine. Dann das nächste.</p><p class="sub">In vier Schritten zur finanziellen Gelassenheit.</p></div>${foot(true)}`,
  ]},
 };
-const dark = { notgroschen:[0,6], schneeball:[0,5], satz:[0,2], methode:[0,5], schritte:[0,5], fuerwen:[0,4], satz2:[0,2] };
+C.frage1 = frage('Wie viel ist für dich genug?','', '„Nichts ist genug für den, dem genug zu wenig ist.“', 'Epikur, Vatikanische Spruchsammlung 68', ['Die meisten kennen ihr Gehalt auf den Euro genau. Ihre Zahl für „genug“ kennen wenige.']);
+C.frage2 = frage('Morgen kommt eine Rechnung über 1.000&nbsp;Euro. Woher nimmst du das Geld?','m', 'Aus einer Krise wird ein Ärgernis, das man selbst lösen kann, ohne jemanden fragen zu müssen.', 'Aus dem Buch „Die Livito-Methode“', ['Dafür ist der Notgroschen da: 1.500&nbsp;Euro auf einem eigenen Tagesgeldkonto.']);
+C.frage3 = frage('Wer hat bei dir das Sagen: du oder dein Geld?','', '„Beim Weisen dient der Reichtum, beim Toren herrscht er.“', 'Seneca, Vom glücklichen Leben 26,1', ['Geld herrscht, solange es dich nachts beschäftigt. Es dient, sobald jeder Teil eine Aufgabe hat.']);
+const dark = { notgroschen:[0,6], schneeball:[0,5], satz:[0,2], methode:[0,5], schritte:[0,5], fuerwen:[0,4], satz2:[0,2], frage1:[0,2], frage2:[0,2], frage3:[0,2] };
 for (const key of Object.keys(C)) { const s = C[key];
   s.slides.forEach((fn,i)=>{ const d = document.createElement('div'); d.className = 'slide ' + (dark[key].includes(i)?'petrol':'papier'); d.id = `${key}-${i+1}`; d.innerHTML = fn(s); document.body.appendChild(d); });
 }
