@@ -61,7 +61,10 @@
 .papier .ask div{color:var(--anthrazit)}
 .papier .ask svg{color:var(--petrol)}
 .petrol .ask svg{color:var(--nebel)}
-.nochmal{font-size:40px;line-height:1.4;color:var(--stein);margin:0 0 56px}
+.nochmal{font-size:48px;line-height:1.4;color:var(--rauch);margin:0 0 72px}
+.weiter{display:flex;align-items:center;gap:44px;color:var(--petrol)}
+.weiter svg{width:128px;height:128px;flex:none}
+.weiter .statement{margin:0;font-size:100px}
 </style>
 </head>
 <body>
@@ -77,9 +80,11 @@ const foot = (dark, hint) => `<div class="foot"><span class="brand">${signet(dar
 
 const ICON = { antwort:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6C13.5 6 6 13.2 6 22.6c0 4.6 1.9 8.7 5.1 11.7L9.4 42l8.4-3.2c2 .6 4 .9 6.2.9 10.5 0 18-7.3 18-17.1S34.5 6 24 6z"/></svg>',
   senden:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M42 6L5 21l14 6 6 15z"/><path d="M19 27L42 6"/></svg>' };
-const frage = (q, cls) => ({ label:'Eine Frage zum Geld', n:2, slides:[
+// Serie "Eine Frage zum Geld": Folie 1 die Frage, Folie 2 Wiederholung der Frage und Aufforderung zum Weiterleiten.
+// wem wechselt von Beitrag zu Beitrag: 'einen Freund' / 'eine Freundin'
+const frage = (q, cls, wem) => ({ label:'Eine Frage zum Geld', n:2, slides:[
   s=>`${kopf(s.label,1,s.n)}<h1 class="title ${cls}">${q}</h1><div class="grow"></div>${band()}${foot(true,'Deine Antwort ↓')}`,
-  s=>`${kopf(s.label,2,s.n)}<div class="mid"><p class="nochmal">„${q}“</p><p class="statement">Wessen Antwort würde dich interessieren?</p><div class="ask"><div>${ICON.senden}<span>Schick die Frage weiter.</span></div></div></div>${foot(false)}`,
+  s=>`${kopf(s.label,2,s.n)}<div class="mid"><p class="nochmal">„${q}“</p><div class="weiter">${ICON.senden}<p class="statement">Frage ${wem}.</p></div></div>${foot(false)}`,
 ]});
 const C = {
  notgroschen: { label:'Schritt für Schritt', n:7, slides:[
@@ -133,9 +138,9 @@ const C = {
   s=>`${kopf(s.label,3,s.n)}<div class="mid"><p class="statement">Erst das eine. Dann das nächste.</p><p class="sub">In vier Schritten zur finanziellen Gelassenheit.</p></div>${foot(true)}`,
  ]},
 };
-C.frage1 = frage('Wie viel ist für dich genug?','');
-C.frage2 = frage('Morgen kommt eine Rechnung über 1.000&nbsp;Euro. Woher nimmst du das Geld?','m');
-C.frage3 = frage('Wer hat bei dir das Sagen: du oder dein Geld?','');
+C.frage1 = frage('Wie viel ist für dich genug?','','einen Freund');
+C.frage2 = frage('Morgen kommt eine Rechnung über 1.000&nbsp;Euro. Woher nimmst du das Geld?','m','eine Freundin');
+C.frage3 = frage('Wer hat bei dir das Sagen: du oder dein Geld?','','einen Freund');
 const dark = { notgroschen:[0,6], schneeball:[0,5], satz:[0,2], methode:[0,5], schritte:[0,5], fuerwen:[0,4], satz2:[0,2], frage1:[0], frage2:[0], frage3:[0] };
 for (const key of Object.keys(C)) { const s = C[key];
   s.slides.forEach((fn,i)=>{ const d = document.createElement('div'); d.className = 'slide ' + (dark[key].includes(i)?'petrol':'papier'); d.id = `${key}-${i+1}`; d.innerHTML = fn(s); document.body.appendChild(d); });

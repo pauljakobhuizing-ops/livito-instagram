@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="brand.css">
+<style>
+/* Reel "Eine Frage zum Geld": Frage erscheint Wort fuer Wort, danach Aufforderung im schwarzen Balken. Daten ueber setTL({q, wem, dur}). */
+html,body{background:#1D4442}
+#stage{width:1080px;height:1920px;position:relative;overflow:hidden;background:var(--petrol);color:#fff}
+#stage > *{position:absolute;left:88px;width:904px}
+#label{top:300px;font-weight:500;font-size:30px;letter-spacing:.16em;text-transform:uppercase;color:var(--nebel)}
+#q{top:470px;font-family:'Inter Tight';font-weight:600;font-size:132px;line-height:1.08;letter-spacing:-.01em}
+#q.m{font-size:104px}
+#q span{display:inline-block;white-space:pre}
+#cta{top:1180px;width:auto !important;display:flex;align-items:center;gap:22px;background:#000;color:#fff;font-weight:600;font-size:58px;line-height:1.25;padding:16px 30px 16px 26px}
+#cta svg{width:60px;height:60px;flex:none}
+#foot{top:1400px;display:flex;justify-content:space-between;align-items:center;font-weight:500;font-size:34px}
+#foot .brand{display:flex;align-items:center;gap:20px}
+#foot svg{width:56px;height:56px}
+#foot .h{font-weight:400;color:var(--nebel)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="label">Eine Frage zum Geld</div>
+  <div id="q"></div>
+  <div id="cta"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M42 6L5 21l14 6 6 15z"/><path d="M19 27L42 6"/></svg><span id="ctatxt"></span></div>
+  <div id="foot"><span class="brand"><svg viewBox="0 0 100 100"><path fill="#fff" d="M47.91 2.05A48 48 0 0 0 2.05 47.91A60.48 60.48 0 0 0 47.91 2.05Z"/><path fill="#fff" d="M97.95 47.91A48 48 0 0 0 52.09 2.05A60.48 60.48 0 0 0 97.95 47.91Z"/><path fill="#fff" d="M52.09 97.95A48 48 0 0 0 97.95 52.09A60.48 60.48 0 0 0 52.09 97.95Z"/><path fill="#fff" d="M2.05 52.09A48 48 0 0 0 47.91 97.95A60.48 60.48 0 0 0 2.05 52.09Z"/></svg><span>Die Livito-Methode</span></span><span class="h">@dielivitomethode</span></div>
+</div>
+<script>
+let TL = { q:'Wie viel ist für dich genug?', wem:'einen Freund', dur:7 };
+const $ = id => document.getElementById(id);
+const cl = x => Math.max(0, Math.min(1, x));
+const f = (t, a, b) => cl((t - a) / (b - a));
+const ease = x => 1 - Math.pow(1 - x, 3);
+let words = [], T = {};
+function setTL(tl) { TL = Object.assign(TL, tl);
+  const w = TL.q.split(' ');
+  $('q').className = TL.q.length > 34 ? 'm' : '';
+  $('q').innerHTML = w.map((x, i) => `<span>${x}${i < w.length - 1 ? ' ' : ''}</span>`).join('<wbr>');
+  words = [...$('q').children].filter(e => e.tagName === 'SPAN');
+  $('ctatxt').textContent = `Frage ${TL.wem}.`;
+  const step = Math.min(.32, 2.4 / w.length);
+  T = { w0:.45, step, qEnd:.45 + step * w.length, cta:0 };
+  T.cta = T.qEnd + 1.5;
+  // Balken direkt unter die Frage setzen
+  $('cta').style.top = ($('q').offsetTop + $('q').offsetHeight + 96) + 'px';
+}
+function setTime(t) {
+  $('label').style.opacity = ease(f(t, .1, .4));
+  words.forEach((el, i) => { const p = ease(f(t, T.w0 + i * T.step, T.w0 + i * T.step + .3)); el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * 28}px)`; });
+  const c = ease(f(t, T.cta, T.cta + .4));
+  $('cta').style.opacity = c; $('cta').style.transform = `translateY(${(1 - c) * 24}px)`;
+  // Versandsymbol: kurze Bewegung nach rechts oben, einmal
+  const k = f(t, T.cta + .7, T.cta + 1.3), wob = Math.sin(k * Math.PI);
+  $('cta').querySelector('svg').style.transform = `translate(${wob * 8}px, ${-wob * 8}px)`;
+  $('foot').style.opacity = ease(f(t, .2, .6));
+}
+setTL({}); setTime(0);
+</script>
+</body>
+</html>
