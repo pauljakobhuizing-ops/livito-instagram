@@ -3,7 +3,7 @@
 # Ergebnis: ../media/reels/reel-<name>.mp4, Klangbett 1 (Flaeche).
 set -e
 cd "$(dirname "$0")"
-NAME="$1"; Q="$2"; WEM="$3"; DUR="${4:-7}"
+NAME="$1"; Q="$2"; WEM="$3"; DUR="${4:-9}"
 TMP=$(mktemp -d)
 python3 -c "import json,sys; json.dump({'q':sys.argv[1],'wem':sys.argv[2],'dur':float(sys.argv[3])}, open(sys.argv[4],'w'), ensure_ascii=False)" "$Q" "$WEM" "$DUR" "$TMP/tl.json"
 FADE=$(python3 -c "print(float('$DUR')-1.2)")

@@ -12,8 +12,8 @@ html,body{background:#1D4442}
 #q{top:470px;font-family:'Inter Tight';font-weight:600;font-size:132px;line-height:1.08;letter-spacing:-.01em}
 #q.m{font-size:104px}
 #q span{display:inline-block;white-space:pre}
-#cta{top:1180px;width:auto !important;display:flex;align-items:center;gap:22px;background:#000;color:#fff;font-weight:600;font-size:58px;line-height:1.25;padding:16px 30px 16px 26px}
-#cta svg{width:60px;height:60px;flex:none}
+#cta{top:1268px;width:auto !important;display:flex;align-items:center;gap:16px;background:#000;color:#fff;font-weight:600;font-size:42px;line-height:1.25;padding:12px 22px 12px 18px}
+#cta svg{width:42px;height:42px;flex:none}
 #foot{top:1400px;display:flex;justify-content:space-between;align-items:center;font-weight:500;font-size:34px}
 #foot .brand{display:flex;align-items:center;gap:20px}
 #foot svg{width:56px;height:56px}
@@ -28,7 +28,7 @@ html,body{background:#1D4442}
   <div id="foot"><span class="brand"><svg viewBox="0 0 100 100"><path fill="#fff" d="M47.91 2.05A48 48 0 0 0 2.05 47.91A60.48 60.48 0 0 0 47.91 2.05Z"/><path fill="#fff" d="M97.95 47.91A48 48 0 0 0 52.09 2.05A60.48 60.48 0 0 0 97.95 47.91Z"/><path fill="#fff" d="M52.09 97.95A48 48 0 0 0 97.95 52.09A60.48 60.48 0 0 0 52.09 97.95Z"/><path fill="#fff" d="M2.05 52.09A48 48 0 0 0 47.91 97.95A60.48 60.48 0 0 0 2.05 52.09Z"/></svg><span>Die Livito-Methode</span></span><span class="h">@dielivitomethode</span></div>
 </div>
 <script>
-let TL = { q:'Wie viel ist für dich genug?', wem:'einen Freund', dur:7 };
+let TL = { q:'Wie viel ist für dich genug?', wem:'einen Freund', dur:9 };
 const $ = id => document.getElementById(id);
 const cl = x => Math.max(0, Math.min(1, x));
 const f = (t, a, b) => cl((t - a) / (b - a));
@@ -42,9 +42,8 @@ function setTL(tl) { TL = Object.assign(TL, tl);
   $('ctatxt').textContent = `Frage ${TL.wem}.`;
   const step = Math.min(.32, 2.4 / w.length);
   T = { w0:.45, step, qEnd:.45 + step * w.length, cta:0 };
-  T.cta = T.qEnd + 1.5;
-  // Balken direkt unter die Frage setzen
-  $('cta').style.top = ($('q').offsetTop + $('q').offsetHeight + 96) + 'px';
+  // Die Frage steht erst eine Weile allein, dann kommt die Aufforderung unten ueber der Fusszeile
+  T.cta = T.qEnd + 3.5;
 }
 function setTime(t) {
   $('label').style.opacity = ease(f(t, .1, .4));
@@ -53,7 +52,7 @@ function setTime(t) {
   $('cta').style.opacity = c; $('cta').style.transform = `translateY(${(1 - c) * 24}px)`;
   // Versandsymbol: kurze Bewegung nach rechts oben, einmal
   const k = f(t, T.cta + .7, T.cta + 1.3), wob = Math.sin(k * Math.PI);
-  $('cta').querySelector('svg').style.transform = `translate(${wob * 8}px, ${-wob * 8}px)`;
+  $('cta').querySelector('svg').style.transform = `translate(${wob * 6}px, ${-wob * 6}px)`;
   $('foot').style.opacity = ease(f(t, .2, .6));
 }
 setTL({}); setTime(0);
