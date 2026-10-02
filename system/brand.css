@@ -1,0 +1,12 @@
+@font-face{font-family:'Inter Tight';font-weight:600;src:url('fonts/inter-tight-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Inter Tight';font-weight:500;src:url('fonts/inter-tight-latin-500-normal.woff2') format('woff2')}
+@font-face{font-family:'InterL';font-weight:400;src:url('fonts/inter-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'InterL';font-weight:500;src:url('fonts/inter-latin-500-normal.woff2') format('woff2')}
+@font-face{font-family:'InterL';font-weight:600;src:url('fonts/inter-latin-600-normal.woff2') format('woff2')}
+:root{
+  --petrol:#1D4442; --nebel:#D6DED8; --anthrazit:#201E1A; --papier:#FFFFFF;
+  --pergament:#F7F5F1; --rauch:#4A473F; --stein:#8A8578;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#888}
+body{font-family:'InterL',Inter,sans-serif;-webkit-font-smoothing:antialiased}

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="brand.css">
+<style>
+.slide{width:1080px;height:1350px;position:relative;overflow:hidden;padding:92px 88px 76px;display:flex;flex-direction:column;margin:0 0 40px}
+.petrol{background:var(--petrol);color:#fff}
+.papier{background:var(--papier);color:var(--anthrazit)}
+.top{display:flex;justify-content:space-between;align-items:baseline;font-weight:500;font-size:26px;letter-spacing:.16em;text-transform:uppercase}
+.petrol .top{color:var(--nebel)}
+.papier .top{color:var(--rauch)}
+.top .nr{letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.title{font-family:'Inter Tight';font-weight:600;font-size:108px;line-height:1.08;letter-spacing:-.01em;margin:84px 0 0}
+.title.quote{font-size:100px}
+.title.m{font-size:92px}
+.h{font-family:'Inter Tight';font-weight:600;font-size:80px;line-height:1.1;letter-spacing:-.01em;margin:96px 0 0;color:var(--petrol)}
+.body{font-size:46px;line-height:1.45;margin:44px 0 0;color:var(--rauch)}
+.body + .body{margin-top:32px}
+.small{font-size:30px;line-height:1.45;color:var(--rauch);margin-top:36px}
+.petrol .body{color:var(--nebel)}
+.grow{flex:1}
+.foot{display:flex;justify-content:space-between;align-items:center;font-weight:500;font-size:28px}
+.foot .brand{display:flex;align-items:center;gap:18px}
+.foot svg{width:44px;height:44px;display:block}
+.petrol .foot{color:#fff}
+.papier .foot{color:var(--anthrazit)}
+.foot .hint{font-weight:400;color:var(--nebel)}
+.papier .foot .hint{color:var(--rauch)}
+.band{margin:0 -88px 64px;height:190px;overflow:hidden}
+.band svg{display:block}
+.list{margin:52px 0 0;padding:0;list-style:none}
+.list li{font-size:46px;line-height:1.35;color:var(--anthrazit);padding:30px 0;border-top:1px solid rgba(32,30,26,.15)}
+.list li:last-child{border-bottom:1px solid rgba(32,30,26,.15)}
+.rows{margin:52px 0 0}
+.row{display:flex;align-items:center;gap:28px;padding:30px 28px;border-top:1px solid rgba(32,30,26,.15);font-size:44px}
+.row:last-child{border-bottom:1px solid rgba(32,30,26,.15)}
+.row .n{font-family:'Inter Tight';font-weight:600;color:var(--petrol);width:56px}
+.row .name{flex:1}
+.row .amt{font-family:'Inter Tight';font-weight:600;font-variant-numeric:tabular-nums}
+.row.first{background:var(--pergament)}
+.row .tag{font-size:24px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--petrol);margin-left:16px}
+.statement{font-family:'Inter Tight';font-weight:600;font-size:92px;line-height:1.1;letter-spacing:-.01em;margin:120px 0 0}
+.sub{font-size:44px;line-height:1.45;color:var(--nebel);margin:52px 0 0}
+.attr{font-size:32px;color:var(--nebel);margin-top:48px}
+.mid{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:56px}
+.mid .h{margin-top:0;font-size:84px}
+.mid .statement{margin-top:0}
+.mid .body{font-size:52px;margin-top:48px}
+.mid .body + .body{margin-top:36px}
+.mid .small{font-size:32px}
+.mid .list li{font-size:50px}
+.mid .row{font-size:48px;padding:34px 28px}
+.mid .sub{font-size:46px}
+</style>
+</head>
+<body>
+<script>
+const P = ['M47.91 2.05A48 48 0 0 0 2.05 47.91A60.48 60.48 0 0 0 47.91 2.05Z','M97.95 47.91A48 48 0 0 0 52.09 2.05A60.48 60.48 0 0 0 97.95 47.91Z','M52.09 97.95A48 48 0 0 0 97.95 52.09A60.48 60.48 0 0 0 52.09 97.95Z','M2.05 52.09A48 48 0 0 0 47.91 97.95A60.48 60.48 0 0 0 2.05 52.09Z'];
+const signet = (fill, two) => `<svg viewBox="0 0 100 100">${P.map((d,i)=>`<path fill="${fill}"${two&&(i==1||i==3)?' opacity=".38"':''} d="${d}"/>`).join('')}</svg>`;
+// Fliesenmuster: Kreise mit Radius R, Mittelpunktabstand 2,4 R, zweitoenig, waagerecht angeschnitten
+const band = () => { const R = 86, step = 2.4*R, n = 8, s = (2*R)/96, y = 95 - 50*s; let g='';
+  for(let k=0;k<n;k++){ const cx = -40 + k*step; g += `<g transform="translate(${cx - 50*s} ${y}) scale(${s})">${P.map((d,i)=>`<path fill="#fff"${(i==1||i==3)?' opacity=".38"':''} d="${d}"/>`).join('')}</g>`; }
+  return `<div class="band"><svg width="1080" height="190" viewBox="0 0 1080 190">${g}</svg></div>`; };
+const kopf = (label, i, n) => `<div class="top"><span>${label}</span><span class="nr">${i}/${n}</span></div>`;
+const foot = (dark, hint) => `<div class="foot"><span class="brand">${signet(dark?'#fff':'#1D4442')}<span>Die Livito-Methode</span></span><span class="hint">${hint||'@dielivitomethode'}</span></div>`;
+
+const C = {
+ notgroschen: { label:'Schritt für Schritt', n:7, slides:[
+  s=>`${kopf(s.label,1,s.n)}<h1 class="title">1.500 Euro. Mehr braucht dein erster Notgroschen nicht.</h1><div class="grow"></div>${band()}${foot(true,'Wischen →')}`,
+  s=>`${kopf(s.label,2,s.n)}<div class="mid"><h2 class="h">Was er ist</h2><p class="body">Eine kleine, feste Rücklage für Ausgaben, die unerwartet kommen, nötig sind und sich nicht verschieben lassen.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,3,s.n)}<div class="mid"><h2 class="h">Wofür er da ist</h2><ul class="list"><li>Die Waschmaschine gibt auf.</li><li>Das Auto braucht neue Bremsen.</li><li>Eine Rechnung, mit der niemand gerechnet hat.</li></ul><p class="small">Nicht für den Urlaub. Nicht als Geldanlage.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,4,s.n)}<div class="mid"><h2 class="h">Warum nur 1.500 Euro</h2><p class="body">Drei bis sechs Monatsgehälter sind für viele so weit weg, dass sie gar nicht erst anfangen.</p><p class="body">1.500 Euro sind erreichbar. Die große Rücklage kommt später.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,5,s.n)}<div class="mid"><h2 class="h">Wo er liegt</h2><p class="body">Auf einem eigenen Tagesgeldkonto, getrennt vom Girokonto.</p><p class="body">Jederzeit verfügbar, im Alltag nicht sichtbar.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,6,s.n)}<div class="mid"><h2 class="h">So kommst du hin</h2><p class="body">Ein Dauerauftrag direkt nach dem Gehaltseingang.</p><p class="body">Auch 20 oder 50 Euro im Monat bringen dich ans Ziel. Wichtig ist, dass es läuft.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,7,s.n)}<div class="mid"><p class="statement">Mit 1.500 Euro wird aus einem Notfall ein Ärgernis.</p><p class="sub">Speichern, bis deiner steht.</p></div>${foot(true)}`,
+ ]},
+ schneeball: { label:'Stimmt das?', n:6, slides:[
+  s=>`${kopf(s.label,1,s.n)}<h1 class="title quote">„Zahl zuerst die Schuld mit dem höchsten Zins.“</h1><div class="grow"></div>${band()}${foot(true,'Wischen →')}`,
+  s=>`${kopf(s.label,2,s.n)}<div class="mid"><h2 class="h">Rechnerisch: ja.</h2><p class="body">Wer zuerst die teuerste Schuld tilgt, spart über die gesamte Zeit etwas Zinsen.</p><p class="body">Oft ist der Unterschied überschaubar.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,3,s.n)}<div class="mid"><h2 class="h">Im Alltag: oft nein.</h2><p class="body">Wer zuerst kleine Schulden abschließt, wird öfter tatsächlich schuldenfrei. Das zeigen zwei Studien.</p><p class="small">Amar, Ariely u. a., Journal of Marketing Research, 2011. Gal und McShane, Journal of Marketing Research, 2012.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,4,s.n)}<div class="mid"><h2 class="h">Also: die kleinste zuerst</h2><div class="rows"><div class="row first"><span class="n">1</span><span class="name">Kreditkarte<span class="tag">zuerst</span></span><span class="amt">450 €</span></div><div class="row"><span class="n">2</span><span class="name">Ratenkauf Handy</span><span class="amt">600 €</span></div><div class="row"><span class="n">3</span><span class="name">Dispo</span><span class="amt">900 €</span></div><div class="row"><span class="n">4</span><span class="name">Autokredit</span><span class="amt">6.000 €</span></div></div><p class="small">Sortiert nach Restsumme, unabhängig vom Zins.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,5,s.n)}<div class="mid"><h2 class="h">Warum das trägt</h2><p class="body">Jede gestrichene Zeile ist ein sichtbarer Erfolg.</p><p class="body">Eine Methode, die ein paar Euro spart, aber nach sechs Monaten aufgegeben wird, spart am Ende nichts.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,6,s.n)}<div class="mid"><p class="statement">Erst die Liste. Dann die kleinste Schuld. Dann die nächste.</p><p class="sub">Schick das jemandem, der gerade Schulden abbaut.</p></div>${foot(true)}`,
+ ]},
+ satz: { label:'Ein Satz zum Geld', n:3, slides:[
+  s=>`${kopf(s.label,1,s.n)}<h1 class="title m">Gelassenheit ist zu wissen, dass der Kontostand reicht.</h1><p class="attr">Aus dem Buch „Die Livito-Methode“</p><div class="grow"></div>${band()}${foot(true,'Wischen →')}`,
+  s=>`${kopf(s.label,2,s.n)}<div class="mid"><h2 class="h">Nicht reich. Gelassen.</h2><p class="body">Es geht nicht darum, möglichst viel zu haben.</p><p class="body">Es geht darum zu wissen, dass es reicht: für die Reparatur, für den nächsten Monat, für später.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,3,s.n)}<div class="mid"><p class="statement">Dafür braucht es kein hohes Einkommen. Es braucht eine Reihenfolge.</p><p class="sub">In vier Schritten zur finanziellen Gelassenheit.</p></div>${foot(true)}`,
+ ]},
+ methode: { label:'Start hier', n:6, slides:[
+  s=>`${kopf(s.label,1,s.n)}<h1 class="title">Was ist die Livito-Methode?</h1><div class="grow"></div>${band()}${foot(true,'Wischen →')}`,
+  s=>`${kopf(s.label,2,s.n)}<div class="mid"><h2 class="h">Eine Reihenfolge</h2><p class="body">Erst der Notgroschen, dann raus aus den Schulden, dann ein echter Puffer, dann die Altersvorsorge.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,3,s.n)}<div class="mid"><h2 class="h">Kein Versprechen auf Reichtum</h2><p class="body">Es geht nicht darum, reich zu werden.</p><p class="body">Es geht darum zu wissen, dass der Kontostand reicht.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,4,s.n)}<div class="mid"><h2 class="h">Woher der Name kommt</h2><p class="body">Livito kommt vom italienischen lievito, Hefe.</p><p class="body">Wie beim Sauerteig: einmal ansetzen, regelmäßig füttern, den Rest erledigt die Zeit.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,5,s.n)}<div class="mid"><h2 class="h">Was dazugehört</h2><ul class="list"><li>Ein Buch</li><li>Sieben Rechner</li><li>Vorlagen zum Ausfüllen</li></ul></div>${foot(false)}`,
+  s=>`${kopf(s.label,6,s.n)}<div class="mid"><p class="statement">Hier gibt es jeden Tag eine Sache, die Ruhe in dein Geld bringt.</p><p class="sub">Folge @dielivitomethode.</p></div>${foot(true)}`,
+ ]},
+ schritte: { label:'Start hier', n:6, slides:[
+  s=>`${kopf(s.label,1,s.n)}<h1 class="title">Vier Schritte. In genau dieser Reihenfolge.</h1><div class="grow"></div>${band()}${foot(true,'Wischen →')}`,
+  s=>`${kopf(s.label,2,s.n)}<div class="mid"><h2 class="h">1. Der Notgroschen</h2><p class="body">1.500 Euro auf einem eigenen Tagesgeldkonto.</p><p class="body">Aus einem Notfall wird ein Ärgernis.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,3,s.n)}<div class="mid"><h2 class="h">2. Raus aus den Schulden</h2><p class="body">Erst die Liste, dann die kleinste Schuld, dann die nächste.</p><p class="small">Die Immobilienfinanzierung zählt hier nicht mit.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,4,s.n)}<div class="mid"><h2 class="h">3. Der Puffer</h2><p class="body">Mindestens vier Monatsausgaben auf der Seite.</p><p class="body">Für die großen Ereignisse, zum Beispiel einen Jobverlust.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,5,s.n)}<div class="mid"><h2 class="h">4. Die Altersvorsorge</h2><p class="body">12 Prozent vom Netto, verteilt auf drei Töpfe.</p><p class="body">Erst jetzt, wenn die ersten drei Schritte stehen.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,6,s.n)}<div class="mid"><p class="statement">Jeder Schritt baut auf dem vorigen auf.</p><p class="sub">Speichern und beim ersten anfangen.</p></div>${foot(true)}`,
+ ]},
+ fuerwen: { label:'Start hier', n:5, slides:[
+  s=>`${kopf(s.label,1,s.n)}<h1 class="title m">Für alle, die genug verdienen und trotzdem keine Ruhe beim Geld haben.</h1><div class="grow"></div>${band()}${foot(true,'Wischen →')}`,
+  s=>`${kopf(s.label,2,s.n)}<div class="mid"><h2 class="h">Kommt dir das bekannt vor?</h2><ul class="list"><li>Der Dispo ist öfter im Minus als im Plus.</li><li>Ein paar Raten laufen nebenher.</li><li>Die Altersvorsorge steht seit Jahren auf der Liste.</li></ul></div>${foot(false)}`,
+  s=>`${kopf(s.label,3,s.n)}<div class="mid"><h2 class="h">Es liegt nicht am Einkommen</h2><p class="body">Finanzielle Gelassenheit entsteht durch Struktur, nicht durch ein hohes Gehalt.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,4,s.n)}<div class="mid"><h2 class="h">Für wen es nicht ist</h2><p class="body">Für alle, die schnell reich werden wollen.</p><p class="body">Und wenn die Raten schon jetzt nicht mehr zu schaffen sind, ist eine Schuldnerberatung der bessere erste Schritt.</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,5,s.n)}<div class="mid"><p class="statement">Ein Schritt nach dem anderen.</p><p class="sub">Hier jeden Tag. Folge @dielivitomethode.</p></div>${foot(true)}`,
+ ]},
+ satz2: { label:'Ein Satz zum Geld', n:3, slides:[
+  s=>`${kopf(s.label,1,s.n)}<h1 class="title m">Was mir über die Jahre gefehlt hat, war etwas anderes: eine Reihenfolge.</h1><p class="attr">Aus dem Buch „Die Livito-Methode“</p><div class="grow"></div>${band()}${foot(true,'Wischen →')}`,
+  s=>`${kopf(s.label,2,s.n)}<div class="mid"><h2 class="h">Nicht mehr Wissen. Nicht mehr Geld.</h2><p class="body">Tipps zum Sparen und Anlegen gibt es genug.</p><p class="body">Was fehlt, ist die Antwort auf eine einfache Frage: Was kommt zuerst?</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,3,s.n)}<div class="mid"><p class="statement">Erst das eine. Dann das nächste.</p><p class="sub">In vier Schritten zur finanziellen Gelassenheit.</p></div>${foot(true)}`,
+ ]},
+};
+const dark = { notgroschen:[0,6], schneeball:[0,5], satz:[0,2], methode:[0,5], schritte:[0,5], fuerwen:[0,4], satz2:[0,2] };
+for (const key of Object.keys(C)) { const s = C[key];
+  s.slides.forEach((fn,i)=>{ const d = document.createElement('div'); d.className = 'slide ' + (dark[key].includes(i)?'petrol':'papier'); d.id = `${key}-${i+1}`; d.innerHTML = fn(s); document.body.appendChild(d); });
+}
+</script>
+</body>
+</html>

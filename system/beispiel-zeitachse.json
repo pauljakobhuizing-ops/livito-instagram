@@ -1,0 +1,40 @@
+{
+ "s": [
+  {
+   "a": 0.3,
+   "b": 2.9,
+   "text": "Vier Schulden. Welche zahlst du zuerst ab?"
+  },
+  {
+   "a": 3.15,
+   "b": 5.15,
+   "text": "Die kleinste. Nicht die teuerste."
+  },
+  {
+   "a": 5.4,
+   "b": 9.5,
+   "text": "Alles, was übrig ist, geht auf die Kreditkarte: 175 Euro im Monat."
+  },
+  {
+   "a": 9.75,
+   "b": 13.55,
+   "text": "Ist sie weg, wandert ihre Rate weiter: 205 Euro aufs Handy."
+  },
+  {
+   "a": 13.8,
+   "b": 15.5,
+   "text": "Danach auf den Dispo."
+  },
+  {
+   "a": 15.75,
+   "b": 19.55,
+   "text": "Am Ende fließen über 380 Euro im Monat in den Autokredit."
+  },
+  {
+   "a": 19.8,
+   "b": 22.1,
+   "text": "Jede gestrichene Zeile hält dich dran."
+  }
+ ],
+ "dur": 24.6
+}

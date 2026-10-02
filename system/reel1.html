@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="brand.css">
+<style>
+html,body{background:#1D4442}
+#stage{width:1080px;height:1920px;position:relative;overflow:hidden;background:var(--petrol);color:#fff}
+#stage > *, .scene > *{position:absolute;left:88px;width:904px}
+.scene{left:0 !important;top:0;width:1080px !important;height:1920px}
+.label{top:300px;font-weight:500;font-size:30px;letter-spacing:.16em;text-transform:uppercase;color:var(--nebel)}
+#num{top:600px;font-family:'Inter Tight';font-weight:600;font-size:196px;line-height:1;letter-spacing:-.01em;transform-origin:left top;white-space:nowrap;font-variant-numeric:tabular-nums}
+#a-sub{top:880px;font-size:64px;line-height:1.3;color:var(--nebel)}
+.line{font-family:'Inter Tight';font-weight:600;font-size:72px;line-height:1.15;letter-spacing:-.01em}
+#btxt{top:580px}#btxt .line{font-size:66px;white-space:nowrap}
+#bars{top:940px;height:390px;display:flex;align-items:flex-end;gap:10px}
+#bars .bar{flex:1;position:relative;background:#fff}
+#bars .bar i{position:absolute;left:0;right:0;bottom:0;background:#8FA3A0;display:block}
+#legend{top:1356px;font-size:32px;line-height:1.4;color:var(--nebel)}
+#c1{top:590px}
+.cmp{height:170px}
+#cmp1{top:760px}#cmp2{top:970px}
+.cmp .t{display:flex;justify-content:space-between;align-items:baseline;font-size:42px;color:var(--nebel)}
+.cmp .t b{font-family:'Inter Tight';font-weight:600;font-size:58px;color:#fff;font-variant-numeric:tabular-nums}
+.cmp .cb{margin-top:20px;height:56px;background:#fff;width:0}
+#c2{top:1210px}
+#note{top:1470px;font-size:30px;color:var(--nebel)}
+#d1{top:540px;font-family:'Inter Tight';font-weight:600;font-size:112px;line-height:1.08;letter-spacing:-.01em}
+#d2{top:1090px;font-size:52px;line-height:1.4;color:var(--nebel)}
+#foot{top:1400px;display:flex;justify-content:space-between;align-items:center;font-weight:500;font-size:34px}
+#foot .brand{display:flex;align-items:center;gap:20px}
+#foot svg{width:56px;height:56px}
+#foot .h{font-weight:400;color:var(--nebel)}
+
+.capline{display:table;background:#000;color:#fff;font-family:'InterL',Inter,sans-serif;font-weight:600;font-size:54px;line-height:1.25;letter-spacing:0;padding:12px 24px;margin:0 0 12px;white-space:nowrap}
+#a-sub{top:880px;width:auto !important}
+#a-sub span{background:#000;color:#fff;font-weight:600;font-size:54px;line-height:1.62;padding:.16em .45em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+#c1,#c2{width:auto !important}
+#c1 span,#c2 span{background:#000;color:#fff;font-family:'InterL',Inter,sans-serif;font-weight:600;font-size:54px;line-height:1.62;letter-spacing:0;padding:.16em .45em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="label" id="label">Eine Zahl</div>
+  <div id="num">35.000 €</div>
+  <div id="a-sub"><span>Aus 100 Euro im Monat.</span></div>
+  <div class="scene" id="b">
+    <div id="btxt"><div class="capline" id="b1">100 Euro im Monat.</div><div class="capline" id="b2">Ab der Geburt deines Kindes.</div><div class="capline" id="b3">18 Jahre lang.</div></div>
+    <div id="bars"></div>
+    <div id="legend">Grau: eingezahlt, zusammen 21.600 €. Weiß: Wertzuwachs im Modell.</div>
+  </div>
+  <div class="scene" id="c">
+    <div class="line" id="c1"><span>Start erst mit 10 Jahren?</span></div>
+    <div class="cmp" id="cmp1"><div class="t"><span>ab Geburt</span><b>rund 35.000 €</b></div><div class="cb" id="cb1"></div></div>
+    <div class="cmp" id="cmp2"><div class="t"><span>ab 10 Jahren</span><b>rund 11.800 €</b></div><div class="cb" id="cb2"></div></div>
+    <div class="line" id="c2"><span>Früher Start: dreimal so viel.</span></div>
+  </div>
+  <div id="note">Modellrechnung mit 5 % Rendite pro Jahr. Keine Prognose.</div>
+  <div class="scene" id="d">
+    <div id="d1">Der Hebel ist nicht der Betrag. Es ist die Zeit.</div>
+    <div id="d2">Schick das jemandem, der gerade Eltern geworden ist.</div>
+    <div id="foot"><span class="brand"><svg viewBox="0 0 100 100"><path fill="#fff" d="M47.91 2.05A48 48 0 0 0 2.05 47.91A60.48 60.48 0 0 0 47.91 2.05Z"/><path fill="#fff" d="M97.95 47.91A48 48 0 0 0 52.09 2.05A60.48 60.48 0 0 0 97.95 47.91Z"/><path fill="#fff" d="M52.09 97.95A48 48 0 0 0 97.95 52.09A60.48 60.48 0 0 0 52.09 97.95Z"/><path fill="#fff" d="M2.05 52.09A48 48 0 0 0 47.91 97.95A60.48 60.48 0 0 0 2.05 52.09Z"/></svg><span>Die Livito-Methode</span></span><span class="h">@dielivitomethode</span></div>
+  </div>
+</div>
+<script>
+const DUR = 12.5;
+const $ = id => document.getElementById(id);
+const cl = x => Math.max(0, Math.min(1, x));
+const f = (t, a, b) => cl((t - a) / (b - a));
+const ease = x => x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2;
+// Modell: 100 Euro im Monat, 5 % pro Jahr, monatlich verzinst
+const im = Math.pow(1.05, 1/12) - 1;
+const fv = y => 100 * (Math.pow(1 + im, 12*y) - 1) / im;
+const max = fv(18);
+const bars = $('bars');
+for (let y = 1; y <= 18; y++) { const b = document.createElement('div'); b.className = 'bar'; b.dataset.h = fv(y) / max; const i = document.createElement('i'); i.style.height = (1200*y / fv(y) * 100) + '%'; b.appendChild(i); bars.appendChild(b); }
+const show = (el, t, a, d = .35, dy = 24) => { const p = ease(f(t, a, a + d)); el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * dy}px)`; };
+function setTime(t) {
+  // Zahl: sofort lesbar, wandert danach nach oben
+  const m = ease(f(t, 2.6, 3.1));
+  $('num').style.top = (600 - 210 * m) + 'px';
+  $('num').style.transform = `scale(${1 - .5 * m})`;
+  $('num').style.opacity = (1 - f(t, 9.0, 9.3));
+  $('label').style.opacity = 1 - f(t, 9.0, 9.3);
+  $('a-sub').style.opacity = ease(f(t, .3, .7)) * (1 - f(t, 2.4, 2.7));
+  $('b').style.opacity = 1 - f(t, 5.9, 6.2);
+  show($('b1'), t, 3.0); show($('b2'), t, 3.5); show($('b3'), t, 4.0);
+  [...bars.children].forEach((b, k) => { b.style.height = (ease(f(t, 3.4 + k * .11, 3.75 + k * .11)) * b.dataset.h * 100) + '%'; });
+  $('legend').style.opacity = f(t, 5.0, 5.3);
+  $('c').style.opacity = f(t, 6.2, 6.5) * (1 - f(t, 9.0, 9.3));
+  show($('c1'), t, 6.3);
+  $('cmp1').style.opacity = f(t, 6.7, 7.0); $('cb1').style.width = (ease(f(t, 6.8, 7.4)) * 100) + '%';
+  $('cmp2').style.opacity = f(t, 7.3, 7.6); $('cb2').style.width = (ease(f(t, 7.4, 7.9)) * 11.8 / 35 * 100) + '%';
+  show($('c2'), t, 8.0);
+  $('note').style.opacity = f(t, 3.2, 3.5) * (1 - f(t, 9.0, 9.3));
+  $('d').style.opacity = f(t, 9.3, 9.7);
+  show($('d1'), t, 9.35, .45);
+  $('d2').style.opacity = f(t, 10.2, 10.6);
+  $('foot').style.opacity = f(t, 9.6, 10.0);
+}
+setTime(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="brand.css">
+<style>
+html,body{background:#1D4442}
+#stage{width:1080px;height:1920px;position:relative;overflow:hidden;background:var(--petrol);color:#fff}
+.abs{position:absolute;left:88px;width:904px}
+.label{top:250px;font-weight:500;font-size:30px;letter-spacing:.16em;text-transform:uppercase;color:var(--nebel)}
+.head{top:320px;font-family:'Inter Tight';font-weight:600;font-size:96px;line-height:1.08;letter-spacing:-.01em}
+#rows{top:600px}
+.row{position:relative;height:150px;margin-bottom:18px;background:rgba(255,255,255,.07);overflow:hidden;display:flex;align-items:center;justify-content:space-between;padding:0 36px 0 42px}
+.row .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(255,255,255,.13)}
+.row .edge{position:absolute;left:0;top:0;bottom:0;width:8px;background:#fff;opacity:0}
+.row .txt{position:relative}
+.row .name{font-weight:500;font-size:50px;line-height:1.2}
+.row .rate{font-size:34px;line-height:1.3;color:var(--nebel);height:0;opacity:0;overflow:hidden}
+.row .amt{position:relative;font-family:'Inter Tight';font-weight:600;font-size:58px;font-variant-numeric:tabular-nums}
+.row .strike{position:absolute;left:42px;right:36px;top:50%;height:4px;margin-top:-2px;background:#fff;transform-origin:left center;transform:scaleX(0)}
+#sub{top:1290px;text-align:center;left:90px;width:900px}
+#sub span{background:#000;color:#fff;font-weight:600;font-size:48px;line-height:1.62;padding:.16em .45em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+#end{position:absolute;inset:0;background:var(--petrol);opacity:0}
+#end .mark{position:absolute;left:88px;top:620px;width:200px;height:200px}
+#end .n{top:880px;font-family:'Inter Tight';font-weight:600;font-size:104px;line-height:1.08;letter-spacing:-.01em}
+#end .s{top:1150px;font-size:50px;line-height:1.4;color:var(--nebel)}
+#end .h{top:1420px;font-size:36px;color:var(--nebel)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="abs label">Rechne nach</div>
+  <div class="abs head" id="h1">Vier Schulden. Welche zuerst?</div>
+  <div class="abs head" id="h2" style="opacity:0">Jede gestrichene Zeile hält dich dran.</div>
+  <div class="abs" id="rows"></div>
+  <div class="abs" id="sub"></div>
+  <div id="end">
+    <svg class="mark" viewBox="0 0 100 100"><path fill="#fff" d="M47.91 2.05A48 48 0 0 0 2.05 47.91A60.48 60.48 0 0 0 47.91 2.05Z"/><path fill="#fff" d="M97.95 47.91A48 48 0 0 0 52.09 2.05A60.48 60.48 0 0 0 97.95 47.91Z"/><path fill="#fff" d="M52.09 97.95A48 48 0 0 0 97.95 52.09A60.48 60.48 0 0 0 52.09 97.95Z"/><path fill="#fff" d="M2.05 52.09A48 48 0 0 0 47.91 97.95A60.48 60.48 0 0 0 2.05 52.09Z"/></svg>
+    <div class="abs n">Die Livito-Methode</div>
+    <div class="abs s">In vier Schritten zur finanziellen Gelassenheit.</div>
+    <div class="abs h">@dielivitomethode</div>
+  </div>
+</div>
+<script>
+// Zeitachse kommt aus der Sprachausgabe: TL.s = [{a, b, text}], TL.dur
+let TL = window.TL || { s: [[0.3,2.8],[3.1,5.2],[5.5,11.1],[11.4,16.1],[16.4,17.7],[18.0,22.8],[23.1,25.3]].map((x,i)=>({a:x[0],b:x[1],text:'Satz '+(i+1)})), dur: 27.8 };
+const DATA = [
+  { name: 'Kreditkarte', amt: '450 €', rate: '175 € im Monat' },
+  { name: 'Ratenkauf Handy', amt: '600 €', rate: '205 € im Monat' },
+  { name: 'Dispo', amt: '900 €', rate: '205 € im Monat' },
+  { name: 'Autokredit', amt: '6.000 €', rate: 'über 380 € im Monat' },
+];
+const $ = id => document.getElementById(id);
+const cl = x => Math.max(0, Math.min(1, x));
+const f = (t, a, b) => cl((t - a) / (b - a));
+const ease = x => x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2;
+const rows = $('rows');
+DATA.forEach(d => { const r = document.createElement('div'); r.className = 'row';
+  r.innerHTML = `<div class="fill"></div><div class="edge"></div><div class="txt"><div class="name">${d.name}</div><div class="rate">${d.rate}</div></div><div class="amt">${d.amt}</div><div class="strike"></div>`; rows.appendChild(r); });
+function setTL(tl) { TL = tl; setTime(0); }
+function setTime(t) {
+  const S = TL.s;
+  // Untertitel: der gerade gesprochene Satz
+  const cur = S.find(s => t >= s.a - .08 && t <= s.b + .25);
+  $('sub').innerHTML = (cur && cur !== S[6]) ? '<span>' + cur.text + '</span>' : '';
+  // Zeilen: Kreditkarte ist in Satz 3 dran, Handy in 4, Dispo in 5, Autokredit in 6
+  const act = [S[2], S[3], S[4], S[5]];
+  [...rows.children].forEach((r, i) => {
+    const appear = ease(f(t, .15 + i * .22, .5 + i * .22));
+    const a = act[i];
+    const hlStart = i === 0 ? S[1].a : a.a;            // Kreditkarte wird schon in Satz 2 hervorgehoben
+    const on = f(t, hlStart, hlStart + .3);
+    const done = i < 3 ? f(t, a.b - .1, a.b + .35) : 0; // die ersten drei werden gestrichen
+    const prog = i < 3 ? ease(f(t, a.a + .2, a.b - .1)) : ease(f(t, a.a + .2, a.b)) * .62;
+    const anyActive = f(t, S[1].a, S[1].a + .3);
+    const dim = 1 - .5 * anyActive * (1 - on);
+    r.style.opacity = appear * dim * (1 - .5 * done);
+    r.style.transform = `translateY(${(1 - appear) * 30}px)`;
+    r.querySelector('.edge').style.opacity = on * (1 - done);
+    r.querySelector('.fill').style.width = (prog * 100) + '%';
+    const rate = r.querySelector('.rate'); const ro = f(t, a.a, a.a + .3);
+    const rv = ro * (1 - done); rate.style.opacity = rv; rate.style.height = (rv * 46) + 'px';
+    r.querySelector('.strike').style.transform = `scaleX(${ease(done)})`;
+  });
+  // Ueberschrift wechselt beim letzten Satz
+  const sw = f(t, S[6].a - .1, S[6].a + .3);
+  $('h1').style.opacity = 1 - sw; $('h2').style.opacity = sw;
+  // Schlussbild
+  $('end').style.opacity = ease(f(t, S[6].b + .5, S[6].b + .9));
+}
+setTime(0);
+</script>
+</body>
+</html>
