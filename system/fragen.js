@@ -1,0 +1,30 @@
+// Fragenvorrat der Serie "Eine Frage zum Geld".
+// Regeln: kurze, offene Fragen, die man aus dem Stand beantworten kann. Keine Fachfragen, keine Zahlen,
+// kein Bezug auf die Livito-Methode. Eigene Formulierungen. Die Reihenfolge ist die Nummer im Dateinamen (frage01 ...).
+// Anrede auf Folie 2 wechselt automatisch: ungerade Nummern "einen Freund", gerade "eine Freundin".
+const FRAGEN = [
+  'Wie viel ist für dich genug?',
+  'Was hast du von deinen Eltern über Geld gelernt?',
+  'Wofür gibst du gern Geld aus?',
+  'Wer hat bei dir das Sagen: du oder dein Geld?',
+  'Welcher Kauf hat sich wirklich gelohnt?',
+  'Mit wem sprichst du offen über Geld?',
+  'Was würdest du deinem 20-jährigen Ich über Geld sagen?',
+  'Wann hast du dich zuletzt reich gefühlt?',
+  'Welche Geldsorge war im Rückblick unnötig?',
+  'Was bedeutet Sicherheit für dich: eine Zahl oder ein Gefühl?',
+  'Was würdest du tun, wenn Geld keine Rolle spielte?',
+  'Was hast du über Geld geglaubt, das nicht stimmte?',
+  'Was war deine beste Entscheidung mit Geld?',
+  'Wie würdest du einem Kind erklären, was Geld ist?',
+  'Was war deine teuerste Lektion?',
+  'Worüber streitet ihr, wenn es um Geld geht?',
+  'Was kann Geld nicht kaufen, das du gerade brauchst?',
+  'Worauf bist du beim Thema Geld stolz?',
+  'Wofür ist dir dein Geld zu schade?',
+  'Woran merkst du, dass es dir finanziell gut geht?',
+  'Wer ist dein Vorbild im Umgang mit Geld?',
+  'Worauf verzichtest du leicht, worauf schwer?',
+  'Was hat dich Geld über dich selbst gelehrt?',
+  'Wie soll sich Geld in zehn Jahren für dich anfühlen?',
+];

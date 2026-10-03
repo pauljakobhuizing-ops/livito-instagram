@@ -68,6 +68,7 @@
 </style>
 </head>
 <body>
+<script src="fragen.js"></script>
 <script>
 const P = ['M47.91 2.05A48 48 0 0 0 2.05 47.91A60.48 60.48 0 0 0 47.91 2.05Z','M97.95 47.91A48 48 0 0 0 52.09 2.05A60.48 60.48 0 0 0 97.95 47.91Z','M52.09 97.95A48 48 0 0 0 97.95 52.09A60.48 60.48 0 0 0 52.09 97.95Z','M2.05 52.09A48 48 0 0 0 47.91 97.95A60.48 60.48 0 0 0 2.05 52.09Z'];
 const signet = (fill, two) => `<svg viewBox="0 0 100 100">${P.map((d,i)=>`<path fill="${fill}"${two&&(i==1||i==3)?' opacity=".38"':''} d="${d}"/>`).join('')}</svg>`;
@@ -138,10 +139,9 @@ const C = {
   s=>`${kopf(s.label,3,s.n)}<div class="mid"><p class="statement">Erst das eine. Dann das nächste.</p><p class="sub">In vier Schritten zur finanziellen Gelassenheit.</p></div>${foot(true)}`,
  ]},
 };
-C.frage1 = frage('Wie viel ist für dich genug?','','einen Freund');
-C.frage2 = frage('Morgen kommt eine Rechnung über 1.000&nbsp;Euro. Woher nimmst du das Geld?','m','eine Freundin');
-C.frage3 = frage('Wer hat bei dir das Sagen: du oder dein Geld?','','einen Freund');
-const dark = { notgroschen:[0,6], schneeball:[0,5], satz:[0,2], methode:[0,5], schritte:[0,5], fuerwen:[0,4], satz2:[0,2], frage1:[0], frage2:[0], frage3:[0] };
+FRAGEN.forEach((q,i)=>{ C['frage'+String(i+1).padStart(2,'0')] = frage(q, q.length>30?'m':'', i%2?'eine Freundin':'einen Freund'); });
+const dark = { notgroschen:[0,6], schneeball:[0,5], satz:[0,2], methode:[0,5], schritte:[0,5], fuerwen:[0,4], satz2:[0,2] };
+FRAGEN.forEach((q,i)=>{ dark['frage'+String(i+1).padStart(2,'0')] = [0]; });
 for (const key of Object.keys(C)) { const s = C[key];
   s.slides.forEach((fn,i)=>{ const d = document.createElement('div'); d.className = 'slide ' + (dark[key].includes(i)?'petrol':'papier'); d.id = `${key}-${i+1}`; d.innerHTML = fn(s); document.body.appendChild(d); });
 }
