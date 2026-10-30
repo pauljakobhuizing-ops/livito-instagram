@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="brand.css">
+<style>
+/* Reel fuer die Serien Geldwoerter, Lieber oder, Warum wir so ticken, Gelassen mit Geld.
+   Daten ueber setTL({typ, ...raw}) aus slides.html. Szenen nacheinander, Zeiten aus der Textlaenge berechnet.
+   Sichere Flaeche: Inhalt zwischen 300 und 1340 px, Fusszeile bei 1400 (darunter liegt die Instagram-Oberflaeche). */
+html,body{background:#1D4442}
+#stage{width:1080px;height:1920px;position:relative;overflow:hidden;background:var(--petrol);color:#fff}
+#label{position:absolute;left:88px;top:300px;font-weight:500;font-size:30px;letter-spacing:.16em;text-transform:uppercase;color:var(--nebel)}
+.sc{position:absolute;left:88px;width:904px;top:400px;height:940px;display:flex;flex-direction:column;justify-content:center;opacity:0}
+.sc.top{justify-content:flex-start;top:440px}
+.big{font-family:'Inter Tight';font-weight:600;font-size:116px;line-height:1.08;letter-spacing:-.01em;text-wrap:balance}
+.big.m{font-size:96px}
+.big.wort{font-size:200px;line-height:1}
+.big span{display:inline-block;white-space:pre}
+.hook{font-family:'Inter Tight';font-weight:600;font-size:76px;line-height:1.12;color:var(--nebel);margin-top:40px;text-wrap:balance}
+.hd{font-family:'Inter Tight';font-weight:600;font-size:80px;line-height:1.1;letter-spacing:-.01em;margin-bottom:44px;text-wrap:balance}
+.ln{margin:0 0 22px}
+.ln span{background:#000;color:#fff;font-weight:600;font-size:52px;line-height:1.62;padding:.16em .45em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.rows{margin:6px 0 28px}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:26px 0;border-top:2px solid rgba(255,255,255,.25);font-size:50px;color:var(--nebel)}
+.row:last-child{border-bottom:2px solid rgba(255,255,255,.25)}
+.row b{font-family:'Inter Tight';font-weight:600;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
+.row.hl{color:#fff}
+.q{font-size:30px;line-height:1.4;color:var(--nebel);margin-top:18px}
+.opt{display:flex;align-items:center;gap:40px;font-family:'Inter Tight';font-weight:600;font-size:88px;line-height:1.1;letter-spacing:-.01em;text-wrap:balance}
+.opt span:last-child{flex:1;min-width:0}
+.opt .ab{flex:none;width:120px;height:120px;border:4px solid var(--nebel);display:flex;align-items:center;justify-content:center;font-size:60px;color:var(--nebel)}
+.oder{font-size:46px;color:var(--nebel);margin:52px 0 52px 160px;letter-spacing:.08em}
+.uhr{margin-top:90px;display:flex;align-items:center;gap:28px;font-weight:600;font-size:44px}
+.uhr .bar{flex:1;height:10px;background:rgba(255,255,255,.2);position:relative}
+.uhr .bar i{position:absolute;left:0;top:0;bottom:0;background:#fff;display:block}
+.st{font-family:'Inter Tight';font-weight:600;font-size:100px;line-height:1.1;letter-spacing:-.01em;text-wrap:balance}
+.sub{font-size:48px;line-height:1.45;color:var(--nebel);margin-top:52px;text-wrap:pretty}
+.cta{margin-top:64px;display:inline-flex;align-self:flex-start;align-items:center;gap:16px;background:#000;font-weight:600;font-size:46px;padding:12px 24px 12px 18px}
+.cta svg{width:46px;height:46px}
+#foot{position:absolute;left:88px;width:904px;top:1400px;display:flex;justify-content:space-between;align-items:center;font-weight:500;font-size:34px}
+#foot .brand{display:flex;align-items:center;gap:20px}
+#foot svg{width:56px;height:56px}
+#foot .h{font-weight:400;color:var(--nebel)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="label"></div>
+  <div id="scenes"></div>
+  <div id="foot"><span class="brand"><svg viewBox="0 0 100 100"><path fill="#fff" d="M47.91 2.05A48 48 0 0 0 2.05 47.91A60.48 60.48 0 0 0 47.91 2.05Z"/><path fill="#fff" d="M97.95 47.91A48 48 0 0 0 52.09 2.05A60.48 60.48 0 0 0 97.95 47.91Z"/><path fill="#fff" d="M52.09 97.95A48 48 0 0 0 97.95 52.09A60.48 60.48 0 0 0 52.09 97.95Z"/><path fill="#fff" d="M2.05 52.09A48 48 0 0 0 47.91 97.95A60.48 60.48 0 0 0 2.05 52.09Z"/></svg><span>Die Livito-Methode</span></span><span class="h" id="fhint">@dielivitomethode</span></div>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const cl = x => Math.max(0, Math.min(1, x));
+const f = (t, a, b) => cl((t - a) / (b - a));
+const ease = x => 1 - Math.pow(1 - x, 3);
+const SEND = '<svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M42 6L5 21l14 6 6 15z"/><path d="M19 27L42 6"/></svg>';
+const LABEL = { wort:'Geldwörter', lieber:'Lieber … oder …?', ticken:'Warum wir so ticken', buch:'Gelassen mit Geld' };
+// Lesezeit: 0,5 s Grundzeit plus 42 ms je Zeichen
+const lese = s => .5 + String(s).replace(/<[^>]+>/g,'').length * .042;
+const fix = s => String(s).replace(/~/g,' ').replace(/(\d) (Euro|€|%|Prozent|Jahren|Jahre|Tage|Tagen|Cent)/g,'$1 $2').replace(/ ([^ <>\u00a0]{1,14})$/, ' $1');
+let SC = [], DUR = 10, COVER = 1.5;
+// Eine Szene: {el, a, b, items:[{el, t}], extra(t)}
+function szene(html, cls) { const d = document.createElement('div'); d.className = 'sc ' + (cls||''); d.innerHTML = html; $('scenes').appendChild(d); return d; }
+function woerter(el, txt) { const w = fix(txt).split(' '); el.innerHTML = w.map((x,i)=>`<span>${x}${i<w.length-1?' ':''}</span>`).join('<wbr>'); return [...el.children].filter(e=>e.tagName==='SPAN'); }
+function inhaltSzene(m, t0) {
+  // Ueberschrift, dann Zeilen (schwarze Balken), Tabellenzeilen, Quelle; jedes Element erscheint nach dem vorigen
+  let html = m.h ? `<div class="hd">${fix(m.h)}</div>` : '';
+  (m.b||[]).forEach(x => html += `<p class="ln"><span>${fix(x)}</span></p>`);
+  if (m.rows) html += `<div class="rows">${m.rows.map(r=>`<div class="row${r[2]?' hl':''}"><span>${fix(r[0])}</span><b>${fix(r[1])}</b></div>`).join('')}</div>`;
+  (m.b2||[]).forEach(x => html += `<p class="ln"><span>${fix(x)}</span></p>`);
+  if (m.q) html += `<p class="q">${fix(m.q)}</p>`;
+  const el = szene(html); let t = t0 + .25; const items = [];
+  [...el.children].forEach(c => {
+    if (c.classList.contains('rows')) { [...c.children].forEach(r => { items.push({el:r, t}); t += .35 + r.textContent.length * .03; }); t += .4; }
+    else if (c.classList.contains('q')) { items.push({el:c, t: t - .3}); }
+    else { items.push({el:c, t}); t += lese(c.textContent); }
+  });
+  return { el, a:t0, b:t + .6, items };
+}
+function setTL(raw) {
+  $('scenes').innerHTML = ''; SC = []; let t = 0;
+  $('label').textContent = raw.label || LABEL[raw.typ];
+  // 1) Einstieg
+  if (raw.typ === 'wort') {
+    const el = szene(`<div class="big wort"></div><div class="hook">${fix(raw.hook)}</div>`, 'top');
+    const ws = woerter(el.children[0], raw.w);
+    SC.push({ el, a:0, b: 1.0 + lese(raw.hook) + .8, items:[{el:el.children[0], t:.15},{el:el.children[1], t:.9}] });
+    COVER = 1.6;
+  } else if (raw.typ === 'lieber') {
+    const el = szene(`<div class="opt"><span class="ab">A</span><span>${fix(raw.a)}</span></div><p class="oder">oder</p><div class="opt"><span class="ab">B</span><span>${fix(raw.b)}</span></div><div class="uhr"><span>Entscheide dich.</span><div class="bar"><i></i></div></div>`);
+    const c = el.children, tB = .9 + lese(raw.a) * .6, tU = tB + lese(raw.b) * .6;
+    SC.push({ el, a:0, b: tU + 3.6, items:[{el:c[0], t:.2},{el:c[1], t:tB - .3},{el:c[2], t:tB},{el:c[3], t:tU}],
+      extra: tt => { c[3].querySelector('i').style.width = (f(tt, tU + .3, tU + 3.3) * 100) + '%'; } });
+    COVER = tU;
+  } else {
+    const el = szene(`<div class="big ${raw.hook.length > 40 ? 'm' : ''}"></div>`, 'top');
+    const ws = woerter(el.children[0], raw.hook), step = Math.min(.22, 2.0 / ws.length);
+    SC.push({ el, a:0, b: .3 + ws.length * step + 1.6, items: ws.map((w,i)=>({el:w, t:.3 + i*step})) });
+    COVER = .3 + ws.length * step + .4;
+  }
+  t = SC[0].b;
+  // 2) Mitte
+  const mitte = raw.typ === 'lieber' ? (raw.aufl ? [raw.aufl] : []) : raw.mitte;
+  mitte.forEach(m => { const s = inhaltSzene(m, t); SC.push(s); t = s.b; });
+  // 3) Schluss
+  let html, hint = '@dielivitomethode';
+  if (raw.typ === 'lieber') html = `<div class="st">A oder B?</div><div class="sub">Schreib es in die Kommentare.</div><div class="cta">${SEND}<span>Frage ${raw.wem}.</span></div>`;
+  else if (raw.typ === 'wort') html = `<div class="st">Speichern und beim nächsten Abendessen erzählen.</div>`;
+  else { html = `<div class="st">${fix(raw.schluss)}</div><div class="sub">${fix(raw.sub)}</div>`; if (raw.typ === 'buch') hint = 'Link in der Bio'; }
+  const el = szene(html); const items = [...el.children].map((c,i)=>({el:c, t: t + .2 + i * .9}));
+  const end = t + .2 + lese(el.textContent) + 1.2;
+  SC.push({ el, a:t, b:end, items, last:true });
+  $('fhint').textContent = hint;
+  DUR = Math.round((end + .3) * 10) / 10;
+  return { dur: DUR, cover: COVER };
+}
+function setTime(t) {
+  $('label').style.opacity = ease(f(t, .05, .35));
+  $('foot').style.opacity = ease(f(t, .1, .5));
+  SC.forEach(s => {
+    const vis = s.last ? f(t, s.a, s.a + .3) : f(t, s.a, s.a + .3) * (1 - f(t, s.b - .25, s.b));
+    s.el.style.opacity = vis;
+    s.items.forEach(it => { const p = ease(f(t, it.t, it.t + .35)); it.el.style.opacity = p; it.el.style.transform = `translateY(${(1 - p) * 26}px)`; });
+    if (s.extra) s.extra(t);
+  });
+}
+</script>
+</body>
+</html>

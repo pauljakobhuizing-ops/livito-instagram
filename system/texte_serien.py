@@ -33,3 +33,10 @@ TEXTE = {
  'ticken08': "Zwei Skireisen, dasselbe Wochenende. Welche nimmst du? 🌿\n\nDie meisten wählen die teurere. Obwohl sie sich auf die andere mehr freuen.\n\nWie hättest du entschieden?",
  'ticken09': "Ein Apfel heute oder zwei morgen? 🌿\n\nUnd was, wenn es um nächstes Jahr geht? Die Antwort ändert sich. Warum, steht im Beitrag.\n\nWie entscheidest du?",
 }
+
+# Buch-Beiträge (jeder zehnte), Muster 30.10.
+TEXTE.update({
+ 'buch01': 'Livito kommt von lievito, Hefe. 🌿\n\nWie beim Sauerteig: einmal ansetzen, regelmäßig füttern, den Rest erledigt die Zeit. Mit Geld funktioniert das genauso.\n\nDas Buch „Die Livito-Methode“ findest du über den Link in der Bio.',
+ 'buch02': 'Für ruhigen Schlaf braucht es weniger Geld, als die meisten denken. 🌿\n\nWas es braucht, ist eine Reihenfolge: erst der Notgroschen, dann die Schulden, dann der Puffer, dann die Altersvorsorge.\n\nMehr dazu im Buch „Die Livito-Methode“. Link in der Bio.',
+ 'buch03': 'Sparen ist keine Charakterfrage. 🌿\n\nWer einmal entscheidet und es dann laufen lässt, muss nicht jeden Monat stark sein.\n\nWas läuft bei dir schon automatisch? Mehr im Buch „Die Livito-Methode“, Link in der Bio.',
+})

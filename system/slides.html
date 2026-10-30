@@ -158,13 +158,16 @@ const serie = (label, erste, mitte, letzte) => { const n = mitte.length + 2; ret
   ...mitte.map((m,i)=> s=>`${kopf(s.label,i+2,s.n)}${inhalt(m)}${foot(false)}`),
   s=>`${kopf(s.label,n,s.n)}${letzte.html}${foot(letzte.dark!==false, letzte.hint||'Speichern')}`,
 ]}; };
-const wort = (w, hook, s2, s3) => serie('Geldwörter', {html:`<h1 class="title wort">${w}</h1><p class="hookbig">${hook}</p>`}, [s2], {dark:false, html:inhalt(s3)});
-const lieber = (a, b, wem, aufl) => serie('Lieber … oder …?',
+const wort = (w, hook, s2, s3) => Object.assign(serie('Geldwörter', {html:`<h1 class="title wort">${w}</h1><p class="hookbig">${hook}</p>`}, [s2], {dark:false, html:inhalt(s3)}), {raw:{typ:'wort', w, hook, mitte:[s2, s3]}});
+const lieber = (a, b, wem, aufl) => Object.assign(serie('Lieber … oder …?',
   {html:`<div class="wahl"><div class="opt"><span class="ab">A</span><span>${a}</span></div><p class="oder">oder</p><div class="opt"><span class="ab">B</span><span>${b}</span></div></div>`, hint: aufl ? 'Erst wählen, dann wischen →' : 'A oder B? ↓'},
   aufl ? [aufl] : [],
-  {dark:false, hint:'@dielivitomethode', html:`<div class="mid"><p class="nochmal">A: ${a}<br>B: ${b}</p><div class="weiter">${ICON.senden}<p class="statement">Frage ${wem}.</p></div></div>`});
-const ticken = (hook, mitte, schluss, sub) => serie('Warum wir so ticken', {html:`<h1 class="title m">${hook}</h1>`}, mitte,
-  {html:`<div class="mid"><p class="statement">${schluss}</p><p class="sub">${sub}</p></div>`});
+  {dark:false, hint:'@dielivitomethode', html:`<div class="mid"><p class="nochmal">A: ${a}<br>B: ${b}</p><div class="weiter">${ICON.senden}<p class="statement">Frage ${wem}.</p></div></div>`}), {raw:{typ:'lieber', a, b, wem, aufl}});
+const geschichte = (label, typ, hint) => (hook, mitte, schluss, sub) => Object.assign(serie(label, {html:`<h1 class="title m">${hook}</h1>`}, mitte,
+  {html:`<div class="mid"><p class="statement">${schluss}</p><p class="sub">${sub}</p></div>`, hint}), {raw:{typ, label, hook, mitte, schluss, sub}});
+const ticken = geschichte('Warum wir so ticken', 'ticken');
+// Buch-Beiträge (jeder zehnte): Thema Gelassenheit, das Buch erst auf der letzten Folie und nur leise.
+const buch = geschichte('Gelassen mit Geld', 'buch', 'Link in der Bio');
 FRAGEN.forEach((q,i)=>{ C['frage'+String(i+1).padStart(2,'0')] = frage(q, q.length>30?'m':'', i%2?'eine Freundin':'einen Freund'); });
 const dark = { notgroschen:[0,6], schneeball:[0,5], satz:[0,2], methode:[0,5], schritte:[0,5], fuerwen:[0,4], satz2:[0,2] };
 FRAGEN.forEach((q,i)=>{ dark['frage'+String(i+1).padStart(2,'0')] = [0]; });
@@ -261,8 +264,25 @@ Object.assign(C, {
    {h:'Die zweite Frage', b:['Ein Apfel in einem Jahr oder zwei Äpfel in einem Jahr und einem Tag?', 'Hier warten fast alle den einen Tag.'], q:'Richard Thaler, Economics Letters, 1981.'},
    {h:'Der Grund', b:['Es ist beide Male derselbe Tag Warten.', 'Aber was sofort kommt, wiegt für uns viel schwerer.']},
  ], 'Das Jetzt ist laut.', 'Darum hilft es, gute Entscheidungen früh zu treffen. Bevor das Jetzt mitredet.'),
+
+ buch01: buch('Warum heißt ein Buch über Geld nach Hefe?', [
+   {h:'Livito kommt von lievito', b:['Das ist Italienisch und heißt: Hefe.', 'Gemeint ist der Sauerteig.']},
+   {h:'Ein Sauerteig braucht drei Dinge', rows:[['Einmal ansetzen',''],['Regelmäßig füttern',''],['Zeit','']]},
+   {h:'Mit Geld ist es genauso', b:['Einmal einrichten: eigene Konten, Daueraufträge, eine Reihenfolge.', 'Jeden Monat füttern: ein fester Betrag.', 'Den Rest erledigt die Zeit.']},
+   {h:'Was du dabei nicht brauchst', b:['Jeden Tag aufs Konto schauen.', 'Jeden Monat neu entscheiden.', 'Ein hohes Einkommen.']},
+ ], 'Gelassen ist, was von allein läuft.', 'Daher der Name: Die~Livito‑Methode. Das Buch dazu findest du über den Link in der Bio.'),
+ buch02: buch('Wie viel Geld brauchst du, um ruhig zu schlafen?', [
+   {h:'Für den Anfang: 1.500 Euro', b:['So viel braucht dein erster Notgroschen.', 'Nicht drei Monatsgehälter. Nicht 10.000 Euro.']},
+   {h:'Was 1.500 Euro verändern', b:['Ohne Rücklage geht die kaputte Waschmaschine in den Dispo.', 'Mit Rücklage ist sie einfach bezahlt.', 'Aus einer Krise wird ein Ärgernis.']},
+   {h:'Und dann?', rows:[['1.~Notgroschen',''],['2.~Raus aus den Schulden',''],['3.~Puffer von vier Monatsausgaben',''],['4.~Altersvorsorge','']], b2:['Ein Schritt nach dem anderen.']},
+ ], 'Ruhig schlafen ist keine Frage des Kontostands. Sondern der Reihenfolge.', 'Die ganze Reihenfolge steht im Buch „Die~Livito‑Methode“. Link in der Bio.'),
+ buch03: buch('Beim Sparen wird Disziplin überschätzt.', [
+   {h:'Jeden Monat neu entscheiden?', b:['Wer jeden Monat neu überlegt, ob er spart, entscheidet sich oft dagegen.', 'Nicht aus Schwäche. Der Monat ist einfach voll.']},
+   {h:'Einmal entscheiden reicht', b:['Ein Dauerauftrag direkt nach dem Gehaltseingang.', 'Danach musst du nicht mehr stark sein.']},
+   {h:'Das zeigt auch die Forschung', b:['Bei einer Betriebsrente sparten:'], rows:[['Selbst anmelden','49 %'],['Automatisch dabei','86 %',1]], q:'Madrian und Shea, Quarterly Journal of Economics, 2001.'},
+ ], 'Gelassen ist, wer nicht jeden Monat neu kämpfen muss.', 'So ist die Livito‑Methode gebaut. Das Buch findest du über den Link in der Bio.'),
 });
-for (const k of Object.keys(C)) if (/^(wort|lieber|ticken)\d\d$/.test(k)) dark[k] = k.startsWith('ticken') ? [0, C[k].n-1] : [0];
+for (const k of Object.keys(C)) if (/^(wort|lieber|ticken|buch)\d\d$/.test(k)) dark[k] = /^(ticken|buch)/.test(k) ? [0, C[k].n-1] : [0];
 for (const key of Object.keys(C)) { const s = C[key];
   s.slides.forEach((fn,i)=>{ const d = document.createElement('div'); d.className = 'slide ' + (dark[key].includes(i)?'petrol':'papier'); d.id = `${key}-${i+1}`; d.innerHTML = fn(s).replace(/~/g,'\u00a0').replace(/(\d) (Euro|€|%|Prozent|Jahren|Jahre|Tage|Tagen|Cent)/g,'$1\u00a0$2').replace(/(Tag|Situation) (\d)/g,'$1\u00a0$2'); d.querySelectorAll('.body,.sub,.nochmal,.hookbig').forEach(e=>{ e.innerHTML = e.innerHTML.replace(/ ([^ <>]{1,16})$/, '\u00a0$1'); }); document.body.appendChild(d); });
 }
