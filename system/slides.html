@@ -65,6 +65,12 @@
 .weiter{display:flex;align-items:center;gap:44px;color:var(--petrol)}
 .weiter svg{width:128px;height:128px;flex:none}
 .weiter .statement{margin:0;font-size:100px}
+.title.wort{font-size:168px;margin-top:150px}
+.sub.hook{font-size:52px;margin-top:40px}
+.wahl{margin:120px 0 0;display:flex;flex-direction:column;gap:0}
+.opt{display:flex;align-items:center;gap:40px;font-family:'Inter Tight';font-weight:600;font-size:84px;line-height:1.1;letter-spacing:-.01em}
+.opt .ab{flex:none;width:112px;height:112px;border:3px solid var(--nebel);display:flex;align-items:center;justify-content:center;font-size:56px;color:var(--nebel)}
+.oder{font-size:44px;color:var(--nebel);margin:48px 0 48px 152px;letter-spacing:.08em}
 </style>
 </head>
 <body>
@@ -139,9 +145,61 @@ const C = {
   s=>`${kopf(s.label,3,s.n)}<div class="mid"><p class="statement">Erst das eine. Dann das nächste.</p><p class="sub">In vier Schritten zur finanziellen Gelassenheit.</p></div>${foot(true)}`,
  ]},
 };
+// ---- Serie "Geldwörter": Folie 1 das Wort, Folie 2 Herkunft, Folie 3 Pointe und Quellen.
+const wort = (w, hook, h2, b2, h3, b3, quelle) => ({ label:'Geldwörter', n:3, slides:[
+  s=>`${kopf(s.label,1,s.n)}<h1 class="title wort">${w}</h1><p class="sub hook">${hook}</p><div class="grow"></div>${band()}${foot(true,'Wischen →')}`,
+  s=>`${kopf(s.label,2,s.n)}<div class="mid"><h2 class="h">${h2}</h2>${b2.map(t=>`<p class="body">${t}</p>`).join('')}</div>${foot(false)}`,
+  s=>`${kopf(s.label,3,s.n)}<div class="mid"><h2 class="h">${h3}</h2>${b3.map(t=>`<p class="body">${t}</p>`).join('')}<p class="quelle">Quellen: ${quelle}</p></div>${foot(false,'Speichern')}`,
+]});
+// ---- Serie "Lieber … oder …?": Folie 1 die Wahl, Folie 2 Aufforderung.
+const lieber = (a, b, wem) => ({ label:'Lieber … oder …?', n:2, slides:[
+  s=>`${kopf(s.label,1,s.n)}<div class="wahl"><div class="opt"><span class="ab">A</span><span>${a}</span></div><p class="oder">oder</p><div class="opt"><span class="ab">B</span><span>${b}</span></div></div><div class="grow"></div>${band()}${foot(true,'A oder B? ↓')}`,
+  s=>`${kopf(s.label,2,s.n)}<div class="mid"><p class="nochmal">A: ${a}<br>B: ${b}</p><div class="weiter">${ICON.senden}<p class="statement">Frage ${wem}.</p></div></div>${foot(false)}`,
+]});
+// ---- Serie "Warum wir so ticken": fünf Folien, Effekt, Studie, Alltag, ruhiger Schluss.
+const ticken = (hook, name, b2, b3, quelle, b4, schluss, sub) => ({ label:'Warum wir so ticken', n:5, slides:[
+  s=>`${kopf(s.label,1,s.n)}<h1 class="title m">${hook}</h1><div class="grow"></div>${band()}${foot(true,'Wischen →')}`,
+  s=>`${kopf(s.label,2,s.n)}<div class="mid"><h2 class="h">${name}</h2>${b2.map(t=>`<p class="body">${t}</p>`).join('')}</div>${foot(false)}`,
+  s=>`${kopf(s.label,3,s.n)}<div class="mid"><h2 class="h">Woher wir das wissen</h2>${b3.map(t=>`<p class="body">${t}</p>`).join('')}<p class="quelle">${quelle}</p></div>${foot(false)}`,
+  s=>`${kopf(s.label,4,s.n)}<div class="mid"><h2 class="h">Im Alltag</h2>${b4.map(t=>`<p class="body">${t}</p>`).join('')}</div>${foot(false)}`,
+  s=>`${kopf(s.label,5,s.n)}<div class="mid"><p class="statement">${schluss}</p><p class="sub">${sub}</p></div>${foot(true,'Speichern')}`,
+]});
+Object.assign(C, {
+ wort1: wort('Pleite', 'Das Wort bedeutete ursprünglich: Flucht.', 'Woher es kommt',
+   ['Hebräisch pəlēṭā heißt Flucht, Rettung. Im Jiddischen wurde daraus pleite.', 'Über die Gaunersprache Rotwelsch kam das Wort im 19. Jahrhundert ins Deutsche. Gemeint war die Flucht vor den Gläubigern.'],
+   'Und der Pleitegeier?', ['Ist gar kein Vogel.', 'Aus dem Pleitegeher wurde in jiddischer Aussprache der Pleitegeier.'], 'Duden; Wahrig Herkunftswörterbuch'),
+ wort2: wort('Bankrott', 'Wörtlich: eine zerbrochene Bank.', 'Woher es kommt',
+   ['Um 1500 aus dem Italienischen: banca rotta, der zerbrochene Tisch.', 'Auf solchen Tischen legten Geldwechsler ihre Münzen aus.'],
+   'Wurde der Tisch wirklich zerschlagen?', ['Eine schöne Geschichte, aber nirgends belegt. Das Bild war wohl von Anfang an bildlich gemeint.', 'Übrigens: Die Bank zum Sitzen und die Bank fürs Konto sind dasselbe Wort.'], 'Duden; Online Etymology Dictionary'),
+ wort3: wort('Moos', 'Warum Geld nach Wald klingt.', 'Woher es kommt',
+   ['Hebräisch ma’ot heißt kleine Münzen.', 'Über das Jiddische kam das Wort in die Gaunersprache Rotwelsch und von dort in unsere Umgangssprache.'],
+   'Ohne Moos nix los', ['Mit dem Grün im Wald hat das Moos im Portemonnaie nichts zu tun.', 'Es ist eines von vielen Geldwörtern, die aus dem Hebräischen kommen.'], 'Jüdische Allgemeine; SRF'),
+ lieber1: lieber('100 Euro heute', '110 Euro in einem Jahr', 'einen Freund'),
+ lieber2: lieber('Ein gemeinsames Konto', 'Getrennte Kassen', 'eine Freundin'),
+ lieber3: lieber('Bar bezahlen', 'Mit Karte bezahlen', 'einen Freund'),
+ ticken1: ticken('Warum 50 Euro verloren schlimmer sind als 50 Euro geschenkt.', 'Verlustaversion',
+   ['Verluste fühlen sich stärker an als gleich große Gewinne.', 'Studien zeigen: ungefähr doppelt so stark.'],
+   ['Daniel Kahneman und Amos Tversky haben den Effekt 1979 beschrieben.', 'Kahneman bekam für diese Forschung 2002 den Wirtschaftsnobelpreis.'],
+   'Kahneman und Tversky, Econometrica, 1979. Tversky und Kahneman, Journal of Risk and Uncertainty, 1992.',
+   ['Darum ärgert eine unerwartete Rechnung länger, als eine gleich hohe Gutschrift freut.', 'Und darum fällt es schwer, sich von Dingen zu trennen, die man kaum noch braucht.'],
+   'Das ist kein Fehler. Das ist menschlich.', 'Wer es weiß, entscheidet ruhiger.'),
+ ticken2: ticken('Warum sich die Steuererstattung wie geschenkt anfühlt.', 'Mentale Konten',
+   ['Wir sortieren Geld im Kopf in Töpfe: Miete, Urlaub, Geschenktes.', 'Und wir behandeln es unterschiedlich, je nachdem, woher es kommt.'],
+   ['Der Ökonom Richard Thaler hat das beschrieben.', '2017 bekam er unter anderem dafür den Wirtschaftsnobelpreis.'],
+   'Thaler, Mental Accounting Matters, Journal of Behavioral Decision Making, 1999.',
+   ['Die Steuererstattung ist dein eigenes Geld, das du vorher zu viel gezahlt hast.', 'Trotzdem gibt man es leichter aus als das Gehalt.'],
+   'Töpfe im Kopf sind nicht schlecht.', 'Man kann sie auch bewusst nutzen. Einer für Unerwartetes, einer für später.'),
+ ticken3: ticken('Warum „jetzt“ so viel lauter ist als „später“.', 'Gegenwartsverzerrung',
+   ['Was sofort kommt, wiegt für uns überproportional schwer.', 'Typisches Muster: lieber 100 Euro heute als 110 Euro morgen. Aber lieber 110 Euro in 31 Tagen als 100 Euro in 30.'],
+   ['Der Psychologe George Ainslie hat das Muster in den 1970er-Jahren untersucht.', 'Der Ökonom David Laibson hat es 1997 in ein bis heute genutztes Modell gefasst.'],
+   'Laibson, Golden Eggs and Hyperbolic Discounting, Quarterly Journal of Economics, 1997.',
+   ['Darum beginnt das Sparen so oft „ab nächstem Monat“.', 'Und wenn der nächste Monat da ist, fühlt er sich wieder wie jetzt an.'],
+   'Gegen das Jetzt hilft kein guter Vorsatz.', 'Es hilft, wenn das Später von allein läuft. Ein Dauerauftrag entscheidet nicht jeden Monat neu.'),
+});
 FRAGEN.forEach((q,i)=>{ C['frage'+String(i+1).padStart(2,'0')] = frage(q, q.length>30?'m':'', i%2?'eine Freundin':'einen Freund'); });
 const dark = { notgroschen:[0,6], schneeball:[0,5], satz:[0,2], methode:[0,5], schritte:[0,5], fuerwen:[0,4], satz2:[0,2] };
 FRAGEN.forEach((q,i)=>{ dark['frage'+String(i+1).padStart(2,'0')] = [0]; });
+Object.assign(dark, { wort1:[0], wort2:[0], wort3:[0], lieber1:[0], lieber2:[0], lieber3:[0], ticken1:[0,4], ticken2:[0,4], ticken3:[0,4] });
 for (const key of Object.keys(C)) { const s = C[key];
   s.slides.forEach((fn,i)=>{ const d = document.createElement('div'); d.className = 'slide ' + (dark[key].includes(i)?'petrol':'papier'); d.id = `${key}-${i+1}`; d.innerHTML = fn(s); document.body.appendChild(d); });
 }
