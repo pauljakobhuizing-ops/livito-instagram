@@ -165,45 +165,106 @@ const lieber = (a, b, wem, aufl) => serie('Lieber … oder …?',
   {dark:false, hint:'@dielivitomethode', html:`<div class="mid"><p class="nochmal">A: ${a}<br>B: ${b}</p><div class="weiter">${ICON.senden}<p class="statement">Frage ${wem}.</p></div></div>`});
 const ticken = (hook, mitte, schluss, sub) => serie('Warum wir so ticken', {html:`<h1 class="title m">${hook}</h1>`}, mitte,
   {html:`<div class="mid"><p class="statement">${schluss}</p><p class="sub">${sub}</p></div>`});
+FRAGEN.forEach((q,i)=>{ C['frage'+String(i+1).padStart(2,'0')] = frage(q, q.length>30?'m':'', i%2?'eine Freundin':'einen Freund'); });
+const dark = { notgroschen:[0,6], schneeball:[0,5], satz:[0,2], methode:[0,5], schritte:[0,5], fuerwen:[0,4], satz2:[0,2] };
+FRAGEN.forEach((q,i)=>{ dark['frage'+String(i+1).padStart(2,'0')] = [0]; });
 Object.assign(C, {
- wort1: wort('Bank', 'ist eigentlich ein Möbelstück.',
+ wort01: wort('Bank', 'ist eigentlich ein Möbelstück.',
    {h:'Das steckt im Wort', b:['Geldwechsler in Italien machten ihre Geschäfte an einem Tisch.', 'Dieser Tisch hieß banca.', 'Daraus wurde unsere Bank.']},
-   {h:'Und wer pleiteging?', b:['Dessen Tisch war kaputt: banca rotta.', 'Daraus wurde unser Wort bankrott.'], q:'Quellen: Duden; Online Etymology Dictionary'}),
- wort2: wort('Kredit', 'heißt eigentlich: Ich glaube dir.',
-   {h:'Das steckt im Wort', b:['Kredit kommt vom lateinischen Wort credere.', 'Das heißt: glauben.']},
+   {h:'Und wer pleiteging?', b:['Dessen Tisch war kaputt: banca~rotta.', 'Daraus wurde unser Wort bankrott.'], q:'Quellen: Duden; Online Etymology Dictionary'}),
+ wort02: wort('Kredit', 'heißt eigentlich: Ich glaube dir.',
+   {h:'Das steckt im Wort', b:['Kredit kommt vom lateinischen~Wort~credere.', 'Das heißt: glauben.']},
    {h:'Darum heißt es Gläubiger', b:['Wer Geld verleiht, glaubt daran, dass es zurückkommt.', 'Ein Kredit ist also vor allem eins: Vertrauen.'], q:'Quellen: Wahrig Herkunftswörterbuch; Online Etymology Dictionary'}),
- wort3: wort('Groschen', 'Bei dir ist er bestimmt schon mal gefallen.',
+ wort03: wort('Groschen', 'Bei dir ist er bestimmt schon mal gefallen.',
    {h:'Woher das kommt', b:['Das Zehnpfennigstück hieß früher Groschen.', 'Man warf es in Automaten.', 'Erst wenn die Münze unten ankam, gab der Automat etwas heraus.']},
-   {h:'Darum sagen wir:', b:['„Der Groschen ist gefallen.“', 'Gemeint ist: Jetzt hat es Klick gemacht.'], q:'Quellen: BRF; Austria-Forum'}),
- lieber1: lieber('1 Million Euro sofort', '1 Cent, täglich verdoppelt, 30 Tage lang', 'einen Freund',
-   {h:'B gewinnt. Deutlich.', rows:[['Tag 1','0,01 €'],['Tag 10','5,12 €'],['Tag 20','5.242,88 €'],['Tag 30','5.368.709,12 €',1]],
-    b2:['Echte Zinsen wachsen langsamer.', 'Das Prinzip ist dasselbe: lange unscheinbar, am Ende gewaltig.']}),
- lieber2: lieber('Mehr Gehalt', 'Mehr Freizeit', 'eine Freundin'),
- lieber3: lieber('Jeden Tag aufs Konto schauen', 'Nie aufs Konto schauen', 'einen Freund'),
- ticken1: ticken('Würdest du diese Wette annehmen?', [
+   {h:'Darum sagen wir:', b:['„Der Groschen ist gefallen.“', 'Gemeint ist: Jetzt hat es Klick~gemacht.'], q:'Quellen: BRF; Austria-Forum'}),
+ wort04: wort('Moos', 'hat nichts mit dem Wald zu tun.',
+   {h:'Das steckt im Wort', b:['Im Hebräischen heißt ma’ot: kleine Münzen.', 'Über das Jiddische kam das Wort in die Gaunersprache.', 'Von dort landete es in unserer Umgangssprache.']},
+   {h:'Darum sagen wir:', b:['„Ohne Moos nix los.“', 'Gemeint ist das Geld.', 'Nicht der Wald.'], q:'Quellen: Jüdische Allgemeine; SRF'}),
+ wort05: wort('Zaster', 'heißt eigentlich: Eisen.',
+   {h:'Das steckt im Wort', b:['Zaster kommt aus dem Romani, der Sprache der Sinti und Roma.', 'Dort heißt sáster: Eisen.', 'Über die Gaunersprache kam das Wort ins Deutsche.']},
+   {h:'Genau wie blechen', b:['Auch „blechen“ für bezahlen stammt aus der Gaunersprache.', 'Dort hieß Geld einfach: Blech.'], q:'Quellen: Duden; SRF'}),
+ wort06: wort('Pleitegeier', 'ist gar kein Vogel.',
+   {h:'Das steckt im Wort', b:['Wer zahlungsunfähig war, hieß früher Pleitegeher.', 'Im Jiddischen klingt „geher“ wie „geier“.']},
+   {h:'So kam der Vogel ins Wort', b:['Aus dem Pleitegeher wurde der Pleitegeier.', 'Mit einem echten Geier hat er nichts zu tun.'], q:'Quellen: Wahrig Herkunftswörterbuch; Großes Wörterbuch der deutschen Sprache'}),
+ wort07: wort('Heller', 'kommt aus einer Stadt in Baden-Württemberg.',
+   {h:'Das steckt im Wort', b:['In Schwäbisch~Hall wurden ab dem 12.~Jahrhundert kleine Silbermünzen geprägt.', 'Man nannte sie Haller Pfennig.', 'Daraus wurde: Heller.']},
+   {h:'Darum sagen wir:', b:['„Keinen roten Heller wert.“', 'Gemeint ist: so gut wie nichts.'], q:'Quellen: Duden; Stadtarchiv Schwäbisch Hall'}),
+ wort08: wort('Konto', 'heißt eigentlich: Rechnung.',
+   {h:'Das steckt im Wort', b:['Konto kommt vom italienischen~Wort~conto.', 'Das heißt: Rechnung.']},
+   {h:'Und noch weiter zurück', b:['Dahinter steckt das lateinische computare: rechnen.', 'Daher kommt auch der Computer.'], q:'Quellen: Duden; Online Etymology Dictionary'}),
+ wort09: wort('Bilanz', 'ist eigentlich eine Waage.',
+   {h:'Das steckt im Wort', b:['Bilanz kommt vom italienischen~Wort~bilancia.', 'Das heißt: Waage mit zwei Schalen.']},
+   {h:'Und das passt bis heute', b:['Eine Bilanz hat zwei Seiten.', 'Am Ende müssen beide gleich schwer sein.'], q:'Quellen: Online Etymology Dictionary; Kommunalwiki der Heinrich-Böll-Stiftung'}),
+ wort10: wort('Euro', 'hätte fast ECU geheißen.',
+   {h:'So stand es im Vertrag', b:['Im Vertrag von Maastricht hieß die gemeinsame Währung noch~ECU.', 'Frankreich wollte den Namen behalten.', 'Der deutsche Finanzminister Theo~Waigel warb für: Euro.']},
+   {h:'Entschieden in Madrid', b:['Im Dezember 1995 legten die Staats- und Regierungschefs fest:', 'Die neue Währung heißt Euro.'], q:'Quellen: Schlussfolgerungen des Europäischen Rats, Madrid 1995; Börse Online'}),
+
+ lieber01: lieber('1~Million Euro sofort', '1~Cent, täglich~verdoppelt, 30~Tage~lang', 'einen Freund',
+   {h:'B gewinnt. Deutlich.', rows:[['Tag 1','0,01 €'],['Tag 10','5,12 €'],['Tag 20','5.242,88 €'],['Tag 30','5.368.709,12 €',1]], b2:['Echte Zinsen wachsen langsamer.', 'Das Prinzip ist dasselbe: lange unscheinbar, am Ende gewaltig.']}),
+ lieber02: lieber('Mehr Gehalt', 'Mehr Freizeit', 'eine Freundin'),
+ lieber03: lieber('Jeden Tag aufs Konto schauen', 'Nie aufs Konto schauen', 'einen Freund'),
+ lieber04: lieber('Bar bezahlen', 'Mit Karte bezahlen', 'eine Freundin'),
+ lieber05: lieber('Ein gemeinsames Konto', 'Getrennte Kassen', 'einen Freund'),
+ lieber06: lieber('Einmal teuer kaufen', 'Öfter günstig kaufen', 'eine Freundin'),
+ lieber07: lieber('Geld für Erlebnisse', 'Geld für Dinge', 'einen Freund'),
+ lieber08: lieber('Über dein Gehalt reden', 'Dein Gehalt bleibt privat', 'eine Freundin'),
+ lieber09: lieber('Ein ausgesuchtes Geschenk', 'Geld als Geschenk', 'einen Freund'),
+ lieber10: lieber('Früher in Rente, weniger Geld', 'Später in Rente, mehr Geld', 'eine Freundin'),
+ lieber11: lieber('Jede Ausgabe aufschreiben', 'Einfach nach Gefühl', 'einen Freund'),
+ lieber12: lieber('Erst sparen, dann ausgeben', 'Erst ausgeben, Rest sparen', 'eine Freundin'),
+
+ ticken01: ticken('Würdest du diese Wette annehmen?', [
    {h:'Die Wette', b:['Eine Münze wird geworfen.'], rows:[['Kopf','Du bekommst 150 €'],['Zahl','Du zahlst 100 €']]},
    {h:'Die meisten sagen nein.', b:['Obwohl sich die Wette lohnt.', 'Viele machen erst mit, wenn sie 200 Euro gewinnen können.'], q:'Daniel Kahneman, Schnelles Denken, langsames Denken, 2011 (dort in Dollar).'},
    {h:'Der Grund', b:['Ein Verlust fühlt sich etwa doppelt so stark an wie ein gleich hoher Gewinn.', 'Die Forschung nennt das Verlustaversion.'], q:'Kahneman und Tversky, Econometrica, 1979.'},
  ], 'Das ist kein Fehler. Das ist menschlich.', 'Wer das weiß, entscheidet ruhiger.'),
- ticken2: ticken('Du hast deine Theaterkarte verloren. Kaufst du eine neue?', [
+ ticken02: ticken('Du hast deine Theaterkarte verloren. Kaufst du eine neue?', [
    {h:'Situation 1', b:['Du hast eine Theaterkarte für 10 Euro gekauft.', 'Am Eingang ist die Karte weg.', 'Kaufst du eine neue?']},
    {h:'Situation 2', b:['Du willst eine Theaterkarte für 10 Euro kaufen.', 'Am Eingang fehlt dir ein 10‑Euro‑Schein.', 'Kaufst du trotzdem eine Karte?']},
    {h:'Das Ergebnis', rows:[['Situation 1','46 % kaufen'],['Situation 2','88 % kaufen',1]], b2:['In beiden Fällen sind 10 Euro weg.'], q:'Tversky und Kahneman, Science, 1981 (dort in Dollar).'},
    {h:'Der Grund', b:['Die verlorene Karte buchen wir im Kopf auf den Theaterabend.', 'Dann kostet der Abend plötzlich 20 Euro.', 'Den verlorenen Schein buchen wir woanders hin.']},
  ], 'Geld ist Geld. Für den Kopf nicht.', 'Wer seine inneren Töpfe kennt, kann sie bewusst nutzen.'),
- ticken3: ticken('Dein Gehirn hält dein zukünftiges Ich für einen Fremden.', [
+ ticken03: ticken('Dein Gehirn hält dein zukünftiges Ich für einen Fremden.', [
    {h:'Das Experiment', b:['Forschende in Stanford ließen Menschen im Hirnscanner nachdenken:'], rows:[['über sich selbst',''],['über sich in zehn Jahren',''],['über andere Menschen','']]},
    {h:'Das Ergebnis', b:['Beim eigenen Ich in zehn Jahren reagierte das Gehirn ähnlich wie bei einer anderen Person.'], q:'Ersner-Hershfield, Wimmer und Knutson, Social Cognitive and Affective Neuroscience, 2009.'},
    {h:'Und beim Geld?', b:['Wer den größten Unterschied zeigte, nahm im Test öfter weniger Geld sofort statt mehr Geld später.']},
    {h:'Im Alltag', b:['Darum fühlt sich Sparen fürs Alter oft an wie Geld verschenken.', 'An jemanden, den man nicht kennt.']},
  ], 'Lern dein zukünftiges Ich kennen.', 'Stell dir vor, wie du in zehn Jahren lebst. Dann fühlt sich Sparen weniger nach Verzicht an.'),
+ ticken04: ticken('Ein Glücksrad hat verändert, was Menschen schätzen.', [
+   {h:'Das Experiment', b:['Ein Glücksrad blieb entweder bei 10 oder bei 65 stehen.', 'Danach sollten die Leute schätzen: Wie viel Prozent der UN‑Länder liegen in Afrika?']},
+   {h:'Das Ergebnis', rows:[['Rad zeigte 10','Schätzung 25 %'],['Rad zeigte 65','Schätzung 45 %',1]], b2:['Die Zahl auf dem Rad hatte mit der Frage nichts zu tun.'], q:'Tversky und Kahneman, Science, 1974.'},
+   {h:'Im Alltag', b:['Darum steht neben dem Angebot so oft ein durchgestrichener hoher Preis.', 'Die erste Zahl setzt den Anker.']},
+ ], 'Die erste Zahl ist nicht die wichtigste.', 'Frag dich lieber: Was ist es mir wert?'),
+ ticken05: ticken('Mit Karte zahlen wir mehr. Viel mehr.', [
+   {h:'Das Experiment', b:['Studierende boten auf Tickets für ein ausverkauftes Basketballspiel.', 'Die eine Hälfte sollte bar zahlen.', 'Die andere Hälfte mit Kreditkarte.']},
+   {h:'Das Ergebnis', b:['Mit Kreditkarte boten sie im Schnitt mehr als doppelt so viel.', 'Für genau dieselben Tickets.'], q:'Prelec und Simester, Marketing Letters, 2001.'},
+   {h:'Der Grund', b:['Bargeld sehen wir gehen.', 'Bei der Karte spüren wir das Bezahlen kaum.']},
+ ], 'Bequem ist nicht immer günstig.', 'Wer das weiß, schaut einmal mehr auf den Betrag.'),
+ ticken06: ticken('Sobald dir eine Tasse gehört, ist sie dir doppelt so viel wert.', [
+   {h:'Das Experiment', b:['Die Hälfte einer Gruppe bekam eine Kaffeetasse geschenkt.', 'Dann durften Besitzer verkaufen und die anderen kaufen.']},
+   {h:'Das Ergebnis', b:['Die Besitzer verlangten etwa doppelt so viel, wie die anderen zahlen wollten.', 'Es kam kaum ein Handel zustande.'], q:'Kahneman, Knetsch und Thaler, Journal of Political Economy, 1990.'},
+   {h:'Im Alltag', b:['Darum fällt Aussortieren so schwer.', 'Was uns gehört, schätzen wir höher ein.']},
+ ], 'Besitz macht wertvoll. Zumindest im Kopf.', 'Eine Frage hilft: Würde ich es heute zu diesem Preis kaufen?'),
+ ticken07: ticken('Ein Häkchen entscheidet, ob Menschen fürs Alter sparen.', [
+   {h:'Das Experiment', b:['Ein großes US‑Unternehmen änderte eine Kleinigkeit bei der Betriebsrente.', 'Vorher musste man sich anmelden.', 'Danach war man automatisch dabei und konnte sich abmelden.']},
+   {h:'Das Ergebnis', b:['Bei neuen Mitarbeitenden:'], rows:[['Selbst anmelden','49 % sparen'],['Automatisch dabei','86 % sparen',1]], q:'Madrian und Shea, Quarterly Journal of Economics, 2001.'},
+   {h:'Der Grund', b:['Wir bleiben gern bei dem, was schon eingestellt ist.', 'Die Forschung nennt das Trägheit.']},
+ ], 'Mach das Richtige zur Voreinstellung.', 'Ein Dauerauftrag ist so ein Häkchen. Einmal gesetzt, läuft er.'),
+ ticken08: ticken('Zwei Skireisen, dasselbe Wochenende. Welche nimmst du?', [
+   {h:'Die Situation', b:['Reise 1 hat 100 Euro gekostet.', 'Reise 2 hat 50 Euro gekostet.', 'Auf Reise 2 freust du dich mehr.', 'Zurückgeben lässt sich keine.']},
+   {h:'Das Ergebnis', rows:[['Die teurere Reise','54 %',1],['Die schönere Reise','46 %']], b2:['Die Mehrheit nimmt die Reise, auf die sie weniger Lust hat.'], q:'Arkes und Blumer, Organizational Behavior and Human Decision Processes, 1985 (dort in Dollar).'},
+   {h:'Der Grund', b:['Beide Reisen sind bezahlt. Das Geld ist so oder so weg.', 'Trotzdem wollen wir die 100 Euro nicht „verschwenden“.']},
+ ], 'Weg ist weg.', 'Gute Entscheidungen schauen nach vorn. Nicht auf das, was schon bezahlt ist.'),
+ ticken09: ticken('Ein Apfel heute oder zwei morgen?', [
+   {h:'Die erste Frage', b:['Ein Apfel heute oder zwei Äpfel morgen?', 'Viele nehmen den einen. Sofort.']},
+   {h:'Die zweite Frage', b:['Ein Apfel in einem Jahr oder zwei Äpfel in einem Jahr und einem Tag?', 'Hier warten fast alle den einen Tag.'], q:'Richard Thaler, Economics Letters, 1981.'},
+   {h:'Der Grund', b:['Es ist beide Male derselbe Tag Warten.', 'Aber was sofort kommt, wiegt für uns viel schwerer.']},
+ ], 'Das Jetzt ist laut.', 'Darum hilft es, gute Entscheidungen früh zu treffen. Bevor das Jetzt mitredet.'),
 });
-FRAGEN.forEach((q,i)=>{ C['frage'+String(i+1).padStart(2,'0')] = frage(q, q.length>30?'m':'', i%2?'eine Freundin':'einen Freund'); });
-const dark = { notgroschen:[0,6], schneeball:[0,5], satz:[0,2], methode:[0,5], schritte:[0,5], fuerwen:[0,4], satz2:[0,2] };
-FRAGEN.forEach((q,i)=>{ dark['frage'+String(i+1).padStart(2,'0')] = [0]; });
-Object.assign(dark, { wort1:[0], wort2:[0], wort3:[0], lieber1:[0], lieber2:[0], lieber3:[0], ticken1:[0,4], ticken2:[0,5], ticken3:[0,5] });
+for (const k of Object.keys(C)) if (/^(wort|lieber|ticken)\d\d$/.test(k)) dark[k] = k.startsWith('ticken') ? [0, C[k].n-1] : [0];
 for (const key of Object.keys(C)) { const s = C[key];
-  s.slides.forEach((fn,i)=>{ const d = document.createElement('div'); d.className = 'slide ' + (dark[key].includes(i)?'petrol':'papier'); d.id = `${key}-${i+1}`; d.innerHTML = fn(s).replace(/(\d) (Euro|€|%|Prozent|Jahren|Jahre|Tage|Tagen|Cent)/g,'$1\u00a0$2').replace(/(Tag|Situation) (\d)/g,'$1\u00a0$2'); document.body.appendChild(d); });
+  s.slides.forEach((fn,i)=>{ const d = document.createElement('div'); d.className = 'slide ' + (dark[key].includes(i)?'petrol':'papier'); d.id = `${key}-${i+1}`; d.innerHTML = fn(s).replace(/~/g,'\u00a0').replace(/(\d) (Euro|€|%|Prozent|Jahren|Jahre|Tage|Tagen|Cent)/g,'$1\u00a0$2').replace(/(Tag|Situation) (\d)/g,'$1\u00a0$2'); d.querySelectorAll('.body,.sub,.nochmal,.hookbig').forEach(e=>{ e.innerHTML = e.innerHTML.replace(/ ([^ <>]{1,16})$/, '\u00a0$1'); }); document.body.appendChild(d); });
 }
 </script>
 </body>
