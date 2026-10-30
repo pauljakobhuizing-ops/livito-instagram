@@ -72,6 +72,10 @@
 .opt .ab{flex:none;width:112px;height:112px;border:3px solid var(--nebel);display:flex;align-items:center;justify-content:center;font-size:56px;color:var(--nebel)}
 .oder{font-size:44px;color:var(--nebel);margin:48px 0 48px 152px;letter-spacing:.08em}
 .hookbig{font-family:'Inter Tight';font-weight:600;font-size:72px;line-height:1.12;color:var(--nebel);margin:36px 0 0;letter-spacing:-.01em}
+.h,.title,.statement,.opt span,.hookbig{text-wrap:balance}
+.body,.sub,.nochmal,.quelle{text-wrap:pretty}
+.slide{hyphens:manual}
+.row .name{flex:1}
 </style>
 </head>
 <body>
@@ -146,60 +150,60 @@ const C = {
   s=>`${kopf(s.label,3,s.n)}<div class="mid"><p class="statement">Erst das eine. Dann das nächste.</p><p class="sub">In vier Schritten zur finanziellen Gelassenheit.</p></div>${foot(true)}`,
  ]},
 };
-// ---- Serie "Geldwörter": Folie 1 Wort und Haken, Folie 2 Auflösung, Folie 3 Pointe und Quellen.
-const wort = (w, hook, h2, b2, h3, b3, quelle) => ({ label:'Geldwörter', n:3, slides:[
-  s=>`${kopf(s.label,1,s.n)}<h1 class="title wort">${w}</h1><p class="hookbig">${hook}</p><div class="grow"></div>${band()}${foot(true,'Wischen →')}`,
-  s=>`${kopf(s.label,2,s.n)}<div class="mid"><h2 class="h">${h2}</h2>${b2.map(t=>`<p class="body">${t}</p>`).join('')}</div>${foot(false)}`,
-  s=>`${kopf(s.label,3,s.n)}<div class="mid"><h2 class="h">${h3}</h2>${b3.map(t=>`<p class="body">${t}</p>`).join('')}<p class="quelle">Quellen: ${quelle}</p></div>${foot(false,'Speichern')}`,
-]});
-// ---- Serie "Lieber … oder …?": Folie 1 die Wahl, optional eine Auflösung, zuletzt Weiterleiten.
-const lieber = (a, b, wem, aufl) => { const n = aufl ? 3 : 2; const sl = [
-  s=>`${kopf(s.label,1,s.n)}<div class="wahl"><div class="opt"><span class="ab">A</span><span>${a}</span></div><p class="oder">oder</p><div class="opt"><span class="ab">B</span><span>${b}</span></div></div><div class="grow"></div>${band()}${foot(true, aufl ? 'Erst wählen, dann wischen →' : 'A oder B? ↓')}`];
-  if (aufl) sl.push(s=>`${kopf(s.label,2,s.n)}<div class="mid"><h2 class="h">${aufl[0]}</h2>${aufl[1].map(t=>`<p class="body">${t}</p>`).join('')}</div>${foot(false)}`);
-  sl.push(s=>`${kopf(s.label,n,s.n)}<div class="mid"><p class="nochmal">A: ${a}<br>B: ${b}</p><div class="weiter">${ICON.senden}<p class="statement">Frage ${wem}.</p></div></div>${foot(false)}`);
-  return { label:'Lieber … oder …?', n, slides:sl }; };
-// ---- Serie "Warum wir so ticken": Haken, frei viele Inhaltsfolien [Überschrift, [Absätze], Quelle?], ruhiger Schluss.
-const ticken = (hook, mitte, schluss, sub) => { const n = mitte.length + 2; return { label:'Warum wir so ticken', n, slides:[
-  s=>`${kopf(s.label,1,s.n)}<h1 class="title m">${hook}</h1><div class="grow"></div>${band()}${foot(true,'Wischen →')}`,
-  ...mitte.map((m,i)=> s=>`${kopf(s.label,i+2,s.n)}<div class="mid"><h2 class="h">${m[0]}</h2>${m[1].map(t=>`<p class="body">${t}</p>`).join('')}${m[2]?`<p class="quelle">${m[2]}</p>`:''}</div>${foot(false)}`),
-  s=>`${kopf(s.label,n,s.n)}<div class="mid"><p class="statement">${schluss}</p><p class="sub">${sub}</p></div>${foot(true,'Speichern')}`,
+// ---- Gemeinsame Bausteine für die Serien Geldwörter, Lieber … oder …?, Warum wir so ticken.
+// Inhaltsfolie: { h: Überschrift, b: [Absätze], rows: [[links, rechts, hervorheben?]], q: Quelle }
+const inhalt = (m) => `<div class="mid">${m.h?`<h2 class="h">${m.h}</h2>`:''}${(m.b||[]).map(t=>`<p class="body">${t}</p>`).join('')}${m.rows?`<div class="rows">${m.rows.map(r=>`<div class="row${r[2]?' first':''}"><span class="name">${r[0]}</span><span class="amt">${r[1]}</span></div>`).join('')}</div>`:''}${(m.b2||[]).map(t=>`<p class="body">${t}</p>`).join('')}${m.q?`<p class="quelle">${m.q}</p>`:''}</div>`;
+const serie = (label, erste, mitte, letzte) => { const n = mitte.length + 2; return { label, n, slides:[
+  s=>`${kopf(s.label,1,s.n)}${erste.html}<div class="grow"></div>${band()}${foot(true, erste.hint||'Wischen →')}`,
+  ...mitte.map((m,i)=> s=>`${kopf(s.label,i+2,s.n)}${inhalt(m)}${foot(false)}`),
+  s=>`${kopf(s.label,n,s.n)}${letzte.html}${foot(letzte.dark!==false, letzte.hint||'Speichern')}`,
 ]}; };
+const wort = (w, hook, s2, s3) => serie('Geldwörter', {html:`<h1 class="title wort">${w}</h1><p class="hookbig">${hook}</p>`}, [s2], {dark:false, html:inhalt(s3)});
+const lieber = (a, b, wem, aufl) => serie('Lieber … oder …?',
+  {html:`<div class="wahl"><div class="opt"><span class="ab">A</span><span>${a}</span></div><p class="oder">oder</p><div class="opt"><span class="ab">B</span><span>${b}</span></div></div>`, hint: aufl ? 'Erst wählen, dann wischen →' : 'A oder B? ↓'},
+  aufl ? [aufl] : [],
+  {dark:false, hint:'@dielivitomethode', html:`<div class="mid"><p class="nochmal">A: ${a}<br>B: ${b}</p><div class="weiter">${ICON.senden}<p class="statement">Frage ${wem}.</p></div></div>`});
+const ticken = (hook, mitte, schluss, sub) => serie('Warum wir so ticken', {html:`<h1 class="title m">${hook}</h1>`}, mitte,
+  {html:`<div class="mid"><p class="statement">${schluss}</p><p class="sub">${sub}</p></div>`});
 Object.assign(C, {
- wort1: wort('Dollar', 'Das Wort ist deutsch.', 'Aus Taler wurde Dollar',
-   ['Ab 1520 wurden im böhmischen Joachimsthal Silbermünzen geprägt: die Joachimsthaler. Kurz: Taler.', 'Der Taler wurde in halb Europa bezahlt. Im Niederdeutschen hieß er Daler, im Englischen dann Dollar.'],
-   'Sag es mal laut', ['Taler. Daler. Dollar.', '1784 schlug Thomas Jefferson vor, die Währung der USA so zu nennen.'], 'Deutsche Bundesbank; Wahrig Herkunftswörterbuch'),
- wort2: wort('Kredit', 'heißt eigentlich: Ich glaube dir.', 'Woher es kommt',
-   ['Vom lateinischen credere: glauben, vertrauen.', 'Wer einen Kredit gibt, glaubt daran, dass das Geld zurückkommt.'],
-   'Und der Gläubiger?', ['Steckt auch im Deutschen schon im Wort: Es ist der, der glaubt.', 'Geld verleihen war von Anfang an eine Frage des Vertrauens.'], 'Wahrig Herkunftswörterbuch; Online Etymology Dictionary'),
- wort3: wort('Groschen', 'Bei dir ist er bestimmt schon mal gefallen.', 'Wohin eigentlich?',
-   ['In den Automaten. Der Groschen war das Zehnpfennigstück.', 'Kaugummi, Briefmarken, Süßes: Viele Automaten gaben erst etwas heraus, wenn die Münze gefallen war.'],
-   'Und der Name?', ['Kommt vom lateinischen grossus: dick.', 'Der Groschen war die dicke Silbermünze, im Gegensatz zum dünnen Denar.'], 'BRF; Online Etymology Dictionary'),
- lieber1: lieber('1 Million Euro sofort', '1 Cent, der sich 30 Tage lang jeden Tag verdoppelt', 'einen Freund',
-   ['Die Auflösung', ['Nach 20 Tagen ist der Cent gerade einmal 5.242,88 Euro wert.', 'Am 30. Tag sind es 5.368.709,12 Euro.', 'Echte Zinsen wachsen viel langsamer. Das Prinzip ist dasselbe: lange unscheinbar, dann gewaltig.']]),
+ wort1: wort('Bank', 'ist eigentlich ein Möbelstück.',
+   {h:'Das steckt im Wort', b:['Geldwechsler in Italien machten ihre Geschäfte an einem Tisch.', 'Dieser Tisch hieß banca.', 'Daraus wurde unsere Bank.']},
+   {h:'Und wer pleiteging?', b:['Dessen Tisch war kaputt: banca rotta.', 'Daraus wurde unser Wort bankrott.'], q:'Quellen: Duden; Online Etymology Dictionary'}),
+ wort2: wort('Kredit', 'heißt eigentlich: Ich glaube dir.',
+   {h:'Das steckt im Wort', b:['Kredit kommt vom lateinischen Wort credere.', 'Das heißt: glauben.']},
+   {h:'Darum heißt es Gläubiger', b:['Wer Geld verleiht, glaubt daran, dass es zurückkommt.', 'Ein Kredit ist also vor allem eins: Vertrauen.'], q:'Quellen: Wahrig Herkunftswörterbuch; Online Etymology Dictionary'}),
+ wort3: wort('Groschen', 'Bei dir ist er bestimmt schon mal gefallen.',
+   {h:'Woher das kommt', b:['Das Zehnpfennigstück hieß früher Groschen.', 'Man warf es in Automaten.', 'Erst wenn die Münze unten ankam, gab der Automat etwas heraus.']},
+   {h:'Darum sagen wir:', b:['„Der Groschen ist gefallen.“', 'Gemeint ist: Jetzt hat es Klick gemacht.'], q:'Quellen: BRF; Austria-Forum'}),
+ lieber1: lieber('1 Million Euro sofort', '1 Cent, täglich verdoppelt, 30 Tage lang', 'einen Freund',
+   {h:'B gewinnt. Deutlich.', rows:[['Tag 1','0,01 €'],['Tag 10','5,12 €'],['Tag 20','5.242,88 €'],['Tag 30','5.368.709,12 €',1]],
+    b2:['Echte Zinsen wachsen langsamer.', 'Das Prinzip ist dasselbe: lange unscheinbar, am Ende gewaltig.']}),
  lieber2: lieber('Mehr Gehalt', 'Mehr Freizeit', 'eine Freundin'),
  lieber3: lieber('Jeden Tag aufs Konto schauen', 'Nie aufs Konto schauen', 'einen Freund'),
  ticken1: ticken('Würdest du diese Wette annehmen?', [
-   ['Die Wette', ['Eine Münze wird geworfen.', 'Kopf: Du bekommst 150 Euro. Zahl: Du zahlst 100 Euro.']],
-   ['Die meisten lehnen ab.', ['Obwohl die Wette für sie günstig ist. Viele steigen erst ein, wenn sie 200 Euro gewinnen können.', 'Ein Verlust wiegt für uns ungefähr doppelt so schwer wie ein gleich hoher Gewinn.'], 'Daniel Kahneman, Schnelles Denken, langsames Denken, 2011. Kahneman und Tversky, Econometrica, 1979.'],
-   ['Im Alltag', ['Darum ärgert eine unerwartete Rechnung länger, als eine gleich hohe Gutschrift freut.']],
- ], 'Das ist kein Fehler. Das ist menschlich.', 'Wer es weiß, entscheidet ruhiger.'),
+   {h:'Die Wette', b:['Eine Münze wird geworfen.'], rows:[['Kopf','Du bekommst 150 €'],['Zahl','Du zahlst 100 €']]},
+   {h:'Die meisten sagen nein.', b:['Obwohl sich die Wette lohnt.', 'Viele machen erst mit, wenn sie 200 Euro gewinnen können.'], q:'Daniel Kahneman, Schnelles Denken, langsames Denken, 2011 (dort in Dollar).'},
+   {h:'Der Grund', b:['Ein Verlust fühlt sich etwa doppelt so stark an wie ein gleich hoher Gewinn.', 'Die Forschung nennt das Verlustaversion.'], q:'Kahneman und Tversky, Econometrica, 1979.'},
+ ], 'Das ist kein Fehler. Das ist menschlich.', 'Wer das weiß, entscheidet ruhiger.'),
  ticken2: ticken('Du hast deine Theaterkarte verloren. Kaufst du eine neue?', [
-   ['Zwei Gruppen, eine Frage', ['Gruppe 1 hat ihre Karte für 10 Dollar verloren.', 'Gruppe 2 hat einen 10-Dollar-Schein verloren und muss die Karte noch kaufen.']],
-   ['Das Ergebnis', ['Gruppe 2: 88 Prozent kaufen trotzdem eine Karte.', 'Gruppe 1: Nur 46 Prozent kaufen eine neue.'], 'Tversky und Kahneman, Science, 1981.'],
-   ['Warum?', ['Der Verlust ist gleich. Aber die verlorene Karte landet im Kopf auf dem Konto „Theater“. Dann kostet der Abend plötzlich 20.', 'Der verlorene Schein landet woanders.']],
+   {h:'Situation 1', b:['Du hast eine Theaterkarte für 10 Euro gekauft.', 'Am Eingang ist die Karte weg.', 'Kaufst du eine neue?']},
+   {h:'Situation 2', b:['Du willst eine Theaterkarte für 10 Euro kaufen.', 'Am Eingang fehlt dir ein 10‑Euro‑Schein.', 'Kaufst du trotzdem eine Karte?']},
+   {h:'Das Ergebnis', rows:[['Situation 1','46 % kaufen'],['Situation 2','88 % kaufen',1]], b2:['In beiden Fällen sind 10 Euro weg.'], q:'Tversky und Kahneman, Science, 1981 (dort in Dollar).'},
+   {h:'Der Grund', b:['Die verlorene Karte buchen wir im Kopf auf den Theaterabend.', 'Dann kostet der Abend plötzlich 20 Euro.', 'Den verlorenen Schein buchen wir woanders hin.']},
  ], 'Geld ist Geld. Für den Kopf nicht.', 'Wer seine inneren Töpfe kennt, kann sie bewusst nutzen.'),
  ticken3: ticken('Dein Gehirn hält dein zukünftiges Ich für einen Fremden.', [
-   ['Das Experiment', ['Forschende in Stanford ließen Menschen im Hirnscanner nachdenken: über sich selbst, über sich in zehn Jahren und über andere Menschen.']],
-   ['Das Ergebnis', ['Das Ich in zehn Jahren sah im Gehirn eher aus wie eine andere Person.', 'Wer den größten Abstand zeigte, wartete im Test am seltensten auf mehr Geld später.'], 'Ersner-Hershfield, Wimmer und Knutson, Social Cognitive and Affective Neuroscience, 2009.'],
-   ['Im Alltag', ['Sparen fürs Alter fühlt sich darum ein bisschen an wie Geld verschenken. An jemanden, den man nicht kennt.']],
- ], 'Lern dein zukünftiges Ich kennen.', 'Was wünscht es sich von dir? Die Antwort macht Sparen leichter.'),
+   {h:'Das Experiment', b:['Forschende in Stanford ließen Menschen im Hirnscanner nachdenken:'], rows:[['über sich selbst',''],['über sich in zehn Jahren',''],['über andere Menschen','']]},
+   {h:'Das Ergebnis', b:['Beim eigenen Ich in zehn Jahren reagierte das Gehirn ähnlich wie bei einer anderen Person.'], q:'Ersner-Hershfield, Wimmer und Knutson, Social Cognitive and Affective Neuroscience, 2009.'},
+   {h:'Und beim Geld?', b:['Wer den größten Unterschied zeigte, nahm im Test öfter weniger Geld sofort statt mehr Geld später.']},
+   {h:'Im Alltag', b:['Darum fühlt sich Sparen fürs Alter oft an wie Geld verschenken.', 'An jemanden, den man nicht kennt.']},
+ ], 'Lern dein zukünftiges Ich kennen.', 'Stell dir vor, wie du in zehn Jahren lebst. Dann fühlt sich Sparen weniger nach Verzicht an.'),
 });
 FRAGEN.forEach((q,i)=>{ C['frage'+String(i+1).padStart(2,'0')] = frage(q, q.length>30?'m':'', i%2?'eine Freundin':'einen Freund'); });
 const dark = { notgroschen:[0,6], schneeball:[0,5], satz:[0,2], methode:[0,5], schritte:[0,5], fuerwen:[0,4], satz2:[0,2] };
 FRAGEN.forEach((q,i)=>{ dark['frage'+String(i+1).padStart(2,'0')] = [0]; });
-Object.assign(dark, { wort1:[0], wort2:[0], wort3:[0], lieber1:[0], lieber2:[0], lieber3:[0], ticken1:[0,4], ticken2:[0,4], ticken3:[0,4] });
+Object.assign(dark, { wort1:[0], wort2:[0], wort3:[0], lieber1:[0], lieber2:[0], lieber3:[0], ticken1:[0,4], ticken2:[0,5], ticken3:[0,5] });
 for (const key of Object.keys(C)) { const s = C[key];
-  s.slides.forEach((fn,i)=>{ const d = document.createElement('div'); d.className = 'slide ' + (dark[key].includes(i)?'petrol':'papier'); d.id = `${key}-${i+1}`; d.innerHTML = fn(s); document.body.appendChild(d); });
+  s.slides.forEach((fn,i)=>{ const d = document.createElement('div'); d.className = 'slide ' + (dark[key].includes(i)?'petrol':'papier'); d.id = `${key}-${i+1}`; d.innerHTML = fn(s).replace(/(\d) (Euro|€|%|Prozent|Jahren|Jahre|Tage|Tagen|Cent)/g,'$1\u00a0$2').replace(/(Tag|Situation) (\d)/g,'$1\u00a0$2'); document.body.appendChild(d); });
 }
 </script>
 </body>
