@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../brand.css">
+<style>
+html,body{background:#888}
+#stage{width:1080px;height:1920px;position:relative;overflow:hidden}
+#label{position:absolute;left:96px;top:300px;font-weight:500;font-size:30px;letter-spacing:.16em;text-transform:uppercase}
+#muster{position:absolute;top:96px;left:-60px;display:flex;gap:44px}
+#muster svg{width:150px;height:150px;flex:none}
+.seg{position:absolute;left:96px;right:96px;top:390px;height:1060px;display:flex;flex-direction:column;justify-content:center}
+.seg.ende{left:0;right:0;top:0;height:1920px;align-items:center;background:#1D4442}
+.hook{font-family:'Inter Tight';font-weight:600;line-height:1.08;letter-spacing:-.01em;margin:0}
+.hook2{font-family:'Inter Tight';font-weight:600;line-height:1.12;letter-spacing:-.01em;margin:44px 0 0}
+.wort{font-family:'Inter Tight';font-weight:600;font-size:230px;line-height:1;letter-spacing:-.015em;margin:0}
+.h{font-family:'Inter Tight';font-weight:600;font-size:96px;line-height:1.1;letter-spacing:-.01em;margin:0}
+.body{font-family:'Inter Tight';font-weight:600;font-size:80px;line-height:1.15;letter-spacing:-.01em;margin:44px 0 0}
+.klein{font-size:30px;line-height:1.45;margin:56px 0 0}
+.rows{margin:56px 0 0}
+.row{font-family:'Inter Tight';font-weight:600;font-size:76px;line-height:1.2;padding:30px 0;border-top:2px solid}
+.opt{display:flex;align-items:center;gap:44px;font-family:'Inter Tight';font-weight:600;font-size:100px;line-height:1.1;letter-spacing:-.01em}
+.opt .ab{flex:none;width:132px;height:132px;border:4px solid;display:flex;align-items:center;justify-content:center;font-size:64px}
+.oder{font-size:50px;margin:64px 0 64px 176px;letter-spacing:.08em}
+.ende svg{width:180px;height:180px}
+.ende .s1{font-family:'Inter Tight';font-weight:600;font-size:76px;color:#fff;margin:64px 0 0}
+.ende .s2{font-size:36px;color:#D6DED8;margin:32px 0 0}
+.hook,.hook2,.h,.body,.opt span{text-wrap:balance}
+</style>
+</head>
+<body>
+<div id="stage"><div id="muster"></div><div id="label"></div></div>
+<script src="common.js"></script>
+<script src="posts.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const RHOOK = [[22,150],[40,132],[60,116],[85,104],[999,92]];
+const RSEG = {
+  hook: (f, s) => `<h1 class="hook" style="color:${s.farbe==='acc'?f.acc:f.fg};font-size:${groesse(s.l1+(s.l2||''), RHOOK)}px">${fix(s.l1)}</h1>${s.l2?`<p class="hook2" style="color:${f.sub};font-size:${Math.round(groesse(s.l1+(s.l2||''), RHOOK)*.72)}px">${fix(s.l2)}</p>`:''}`,
+  zitat: (f, s) => `<h1 class="hook" style="color:${f.fg};font-size:${groesse(s.q, RHOOK)}px;opacity:${s.dim?.28:1}">„${fix(s.q)}“</h1>${s.plus?`<p class="hook" style="color:${f.acc};font-size:132px;margin-top:80px">${fix(s.plus)}</p>`:''}`,
+  text: (f, s) => `${s.h?`<h2 class="h" style="color:${f.fg}">${fix(s.h)}</h2>`:''}${(s.b||[]).map((t,i)=>`<p class="body" style="color:${s.akzent===i?f.acc:f.sub}">${fix(t)}</p>`).join('')}${s.rows?`<div class="rows">${s.rows.map(r=>`<div class="row" style="color:${f.acc};border-color:${f.line}">${fix(r)}</div>`).join('')}</div>`:''}${s.q?`<p class="klein" style="color:${f.lab}">${fix(s.q)}</p>`:''}`,
+  wort: (f, s) => `<h1 class="wort" style="color:${f.acc}">${s.w}</h1><p class="hook2" style="color:${f.fg};font-size:96px">${fix(s.hook)}</p>`,
+  wahl: (f, s) => `<div class="opt" style="color:${f.fg}"><span class="ab" style="border-color:${f.sub};color:${f.sub}">A</span><span>${fix(s.a)}</span></div><p class="oder" style="color:${f.sub}">oder</p><div class="opt" style="color:${f.fg}"><span class="ab" style="border-color:${f.sub};color:${f.sub}">B</span><span>${fix(s.b)}</span></div>`,
+  frage: (f, s) => `<h1 class="hook" style="color:#fff;font-size:${groesse(s.q, [[30,140],[50,124],[70,112],[999,100]])}px">${fix(s.q)}</h1>`,
+  ende: (f, s) => `${signet('#FFFFFF')}${s.s1!==''?`<p class="s1">${fix(s.s1||'Gelassenheit mit Geld.')}</p>`:''}<p class="s2">@dielivitomethode</p>`,
+};
+const FADE = .35;
+let SEGS = [], DUR = 0, MUSTER = false;
+function setPost(id) {
+  const post = POSTS.find(p => p.id === id); const f = F[post.format];
+  $('stage').style.background = f.bg; $('label').textContent = f.label; $('label').style.color = f.lab;
+  MUSTER = post.format === 'frage';
+  $('muster').innerHTML = MUSTER ? Array.from({length: 9}, () => signet('#FFFFFF', true)).join('') : '';
+  document.querySelectorAll('.seg').forEach(e => e.remove());
+  const segs = post.segs.concat([{ t:'ende', d: post.endeDauer || 1.6, s1: post.endeText }]);
+  let t = 0; SEGS = segs.map(s => { const el = document.createElement('div'); el.className = 'seg' + (s.t === 'ende' ? ' ende' : '');
+    el.innerHTML = RSEG[s.t](f, s); $('stage').appendChild(el); const seg = { a: t, b: t + s.d, el, t: s.t }; t += s.d; return seg; });
+  DUR = +t.toFixed(2);
+  const cover = post.coverS != null ? post.coverS : Math.min(1.5, SEGS[0].b - .5);
+  setTime(0);
+  return { dur: DUR, cover };
+}
+function setTime(t) {
+  SEGS.forEach((s, i) => {
+    let o = 1;
+    if (i > 0) o = Math.min(o, Math.max(0, Math.min(1, (t - s.a) / FADE)));
+    if (i < SEGS.length - 1) o = Math.min(o, Math.max(0, Math.min(1, (s.b - t) / FADE)));
+    if (t < s.a - .001 && i > 0) o = 0;
+    s.el.style.opacity = o;
+  });
+  const last = SEGS[SEGS.length - 1];
+  $('label').style.opacity = 1 - Math.max(0, Math.min(1, (t - last.a) / FADE));
+  if (MUSTER) $('muster').style.transform = `translateX(${-t * 9}px)`;
+}
+</script>
+</body>
+</html>
