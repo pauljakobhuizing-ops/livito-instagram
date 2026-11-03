@@ -36,6 +36,7 @@ with sync_playwright() as p:
         for rid in rids:
             r = pg.evaluate('id => setPost(id)', rid); dur, cover = r['dur'], r['cover']
             fmt = pg.evaluate('id => POSTS.find(p => p.id === id).format', rid)
+            loop = pg.evaluate('id => !!POSTS.find(p => p.id === id).loop', rid)
             klang = pg.evaluate('f => F[f].klang', fmt)
             if '--stills' in flags:
                 os.makedirs(W + '/frames', exist_ok=True)
@@ -45,7 +46,7 @@ with sync_playwright() as p:
                 continue
             tmp = tempfile.mkdtemp()
             subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-stream_loop', '-1', '-i', f'{KLANG}/{klang}', '-t', str(dur),
-                            '-af', f'afade=t=in:st=0:d=0.3,afade=t=out:st={dur - 1.2}:d=1.2', f'{tmp}/bett.wav'], check=True)
+                            '-af', ('afade=t=in:st=0:d=0.04,afade=t=out:st=%s:d=0.04' % (dur - 0.04)) if loop else f'afade=t=in:st=0:d=0.3,afade=t=out:st={dur - 1.2}:d=1.2', f'{tmp}/bett.wav'], check=True)
             out = f'{OUT}/{rid}.mp4'
             ff = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', str(FPS), '-c:v', 'mjpeg', '-i', '-',
                                    '-i', f'{tmp}/bett.wav', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '21', '-preset', 'veryfast', '-r', str(FPS),

@@ -12,10 +12,10 @@ const MAG = {
   'notgroschen': 'Der Notgroschen: 1.500 Euro, die alles leichter machen',
 };
 const magZeile = slug => `Mehr dazu im Magazin: „${MAG[slug]}“. Link in der Bio.`;
-const TEILEN = 'Oder schick die Frage jemandem, mit dem du gern darüber redest.';
+const TEILEN = 'Schreib’s gern in die Kommentare. Oder schick die Frage jemandem, mit dem du darüber reden magst.';
 const frageReel = (id, datum, q, text) => ({ id, datum, zeit:'20:30', typ:'reel', format:'frage', hook:'Frage', thema:'Frage', magazin:'', buch:false,
-  text: text + '\n\n' + TEILEN, coverS: 1.0, endeText: '',
-  segs: [ { t:'frage', q, d:6.5 }, { t:'text', b:['Nimm sie mit in den Abend.'], d:1.9 } ] });
+  text: text + '\n\n' + TEILEN, coverS: 1.0, loop: true,
+  segs: [ { t:'frage', q, d: q.length > 45 ? 6 : 5 } ] });
 
 const POSTS = [
 // ---------------- Mittwoch, 4. November ----------------
@@ -62,7 +62,7 @@ frageReel('r-frage05', '2026-11-04', 'Welcher Kauf hat sich wirklich gelohnt?', 
   ]},
 { id:'r-lieber04', datum:'2026-11-05', zeit:'11:30', typ:'reel', format:'lieber', hook:'Wahl', thema:'Bezahlen', magazin:'', buch:false,
   text:'Bar oder Karte? 🌿\n\nDie Frage teilt Freundeskreise.\n\nA oder B? Schreib es in die Kommentare.',
-  segs:[ { t:'wahl', a:'Bar bezahlen', b:'Mit Karte bezahlen', d:4.5 }, { t:'text', b:['Die Frage teilt Freundeskreise.','Auf welcher Seite stehst du?'], akzent:1, d:3.2 } ]},
+  loop:true, segs:[ { t:'wahl', a:'Bar bezahlen', b:'Mit Karte bezahlen', d:5.5 } ]},
 { id:'ticken05', datum:'2026-11-05', zeit:'16:30', typ:'karussell', format:'ticken', hook:'Behauptung', thema:'Bezahlen', magazin:'', buch:false,
   text:'Mit Karte zahlen wir mehr. Viel mehr. 🌿\n\nIn einem Experiment boten Menschen mit Kreditkarte mehr als doppelt so viel wie mit Bargeld.\n\nZahlst du lieber bar oder mit Karte?',
   slides:[
@@ -167,8 +167,8 @@ frageReel('r-frage09', '2026-11-08', 'Welche Geldsorge war im Rückblick unnöti
    { t:'ende', h:'Vergleich in Ruhe. Du hast Zeit.', note:'Stand Ende Oktober 2026. Quellen: Bundesministerium der Finanzen; finanzfacts; Handelsblatt.' },
   ]},
 { id:'r-lieber05', datum:'2026-11-09', zeit:'11:30', typ:'reel', format:'lieber', hook:'Wahl', thema:'Paare', magazin:'', buch:false,
-  text:'Gemeinsames Konto oder getrennte Kassen? 🌿\n\nJedes Paar findet seinen eigenen Weg.\n\nWie macht ihr es?',
-  segs:[ { t:'wahl', a:'Ein gemeinsames Konto', b:'Getrennte Kassen', d:4.5 }, { t:'text', b:['Jedes Paar findet seinen eigenen Weg.','Wie macht ihr es?'], akzent:1, d:3.2 } ]},
+  text:'Gemeinsames Konto oder getrennte Kassen? 🌿\n\nJedes Paar findet seinen eigenen Weg.\n\nWie macht ihr es? Schreib’s gern in die Kommentare.',
+  loop:true, segs:[ { t:'wahl', a:'Ein gemeinsames Konto', b:'Getrennte Kassen', d:5.5 } ]},
 { id:'lieber03', datum:'2026-11-09', zeit:'16:30', typ:'karussell', format:'lieber', hook:'Wahl', thema:'Kontostand', magazin:'', buch:false, hint:'Erst wählen, dann wischen →',
   text:'Jeden Tag aufs Konto schauen oder nie? 🌿\n\nBeides hat seine Fans.\n\nA oder B? Und warum?',
   slides:[ { t:'wahl', a:'Jeden Tag aufs Konto schauen', b:'Nie aufs Konto schauen' }, { t:'ende', h:'Beides hat seine Fans.', sub:'A oder B? Und warum?' } ]},

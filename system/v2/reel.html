@@ -45,14 +45,15 @@ const RSEG = {
   ende: (f, s) => `${signet('#FFFFFF')}${s.s1!==''?`<p class="s1">${fix(s.s1||'Gelassenheit mit Geld.')}</p>`:''}<p class="s2">@dielivitomethode</p>`,
 };
 const FADE = .35;
-let SEGS = [], DUR = 0, MUSTER = false;
+let SEGS = [], DUR = 0, MUSTER = false, LOOP = false;
 function setPost(id) {
   const post = POSTS.find(p => p.id === id); const f = F[post.format];
   $('stage').style.background = f.bg; $('label').textContent = f.label; $('label').style.color = f.lab;
   MUSTER = post.format === 'frage';
   $('muster').innerHTML = MUSTER ? Array.from({length: 9}, () => signet('#FFFFFF', true)).join('') : '';
   document.querySelectorAll('.seg').forEach(e => e.remove());
-  const segs = post.segs.concat([{ t:'ende', d: post.endeDauer || 1.6, s1: post.endeText }]);
+  LOOP = !!post.loop;
+  const segs = LOOP ? post.segs : post.segs.concat([{ t:'ende', d: post.endeDauer || 1.6, s1: post.endeText }]);
   let t = 0; SEGS = segs.map(s => { const el = document.createElement('div'); el.className = 'seg' + (s.t === 'ende' ? ' ende' : '');
     el.innerHTML = RSEG[s.t](f, s); $('stage').appendChild(el); const seg = { a: t, b: t + s.d, el, t: s.t }; t += s.d; return seg; });
   DUR = +t.toFixed(2);
@@ -69,8 +70,9 @@ function setTime(t) {
     s.el.style.opacity = o;
   });
   const last = SEGS[SEGS.length - 1];
-  $('label').style.opacity = 1 - Math.max(0, Math.min(1, (t - last.a) / FADE));
-  if (MUSTER) $('muster').style.transform = `translateX(${-t * 9}px)`;
+  $('label').style.opacity = LOOP ? 1 : 1 - Math.max(0, Math.min(1, (t - last.a) / FADE));
+  // Schleife: das Muster wandert pro Durchlauf genau eine Kachel (150 px + 44 px Abstand) weiter, damit Anfang und Ende nahtlos passen
+  if (MUSTER) $('muster').style.transform = `translateX(${LOOP ? -(t / DUR) * 194 : -t * 9}px)`;
 }
 </script>
 </body>

@@ -4,15 +4,15 @@
   "cover_ms": 1500
  },
  "r-frage05": {
-  "dur": 10,
+  "dur": 5,
   "cover_ms": 1000
  },
  "r-lieber04": {
-  "dur": 9.3,
+  "dur": 5.5,
   "cover_ms": 1500
  },
  "r-frage06": {
-  "dur": 10,
+  "dur": 5,
   "cover_ms": 1000
  },
  "stimmt02": {
@@ -20,7 +20,7 @@
   "cover_ms": 1500
  },
  "r-frage07": {
-  "dur": 10,
+  "dur": 6,
   "cover_ms": 1000
  },
  "r-wort01": {
@@ -28,7 +28,7 @@
   "cover_ms": 1500
  },
  "r-frage08": {
-  "dur": 10,
+  "dur": 5,
   "cover_ms": 1000
  },
  "stimmt03": {
@@ -36,15 +36,15 @@
   "cover_ms": 1500
  },
  "r-frage09": {
-  "dur": 10,
+  "dur": 5,
   "cover_ms": 1000
  },
  "r-lieber05": {
-  "dur": 9.3,
+  "dur": 5.5,
   "cover_ms": 1500
  },
  "r-frage10": {
-  "dur": 10,
+  "dur": 6,
   "cover_ms": 1000
  }
 }
