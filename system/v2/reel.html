@@ -23,7 +23,7 @@ html,body{background:#888}
 .opt .ab{flex:none;width:132px;height:132px;border:4px solid;display:flex;align-items:center;justify-content:center;font-size:64px}
 .oder{font-size:50px;margin:64px 0 64px 176px;letter-spacing:.08em}
 .ende svg{width:180px;height:180px}
-.ende .s1{font-family:'Inter Tight';font-weight:600;font-size:76px;color:#fff;margin:64px 0 0}
+.ende .s1{font-family:'Inter Tight';font-weight:600;font-size:76px;color:#fff;margin:64px 0 0;max-width:820px;text-align:center;text-wrap:balance}
 .ende .s2{font-size:36px;color:#D6DED8;margin:32px 0 0}
 .hook,.hook2,.h,.body,.opt span{text-wrap:balance}
 </style>
@@ -36,9 +36,10 @@ html,body{background:#888}
 const $ = id => document.getElementById(id);
 const RHOOK = [[22,150],[40,132],[60,116],[85,104],[999,92]];
 const RSEG = {
-  hook: (f, s) => `<h1 class="hook" style="color:${s.farbe==='acc'?f.acc:f.fg};font-size:${groesse(s.l1+(s.l2||''), RHOOK)}px">${fix(s.l1)}</h1>${s.l2?`<p class="hook2" style="color:${f.sub};font-size:${Math.round(groesse(s.l1+(s.l2||''), RHOOK)*.72)}px">${fix(s.l2)}</p>`:''}`,
+  hook: (f, s) => { const px = s.px || groesse(s.l1+(s.l2||''), RHOOK); const br = t => fix(t).replace(/\|/g,'<br>'); return `<h1 class="hook" style="color:${s.farbe==='acc'?f.acc:f.fg};font-size:${px}px">${br(s.l1)}</h1>${s.l2?`<p class="hook2" style="color:${f.sub};font-size:${s.px2||Math.round(px*.72)}px">${br(s.l2)}</p>`:''}`; },
+  stapel: (f, s) => `<div style="text-align:center">${s.zeilen.map(z => z[1] ? `<p class="hook2" style="color:${f.sub};font-size:${s.klein||70}px;margin:24px 0">${fix(z[0])}</p>` : `<h1 class="hook" style="color:${f.fg};font-size:${s.gross||150}px">${fix(z[0])}</h1>`).join('')}</div>`,
   zitat: (f, s) => `<h1 class="hook" style="color:${f.fg};font-size:${groesse(s.q, RHOOK)}px;opacity:${s.dim?.28:1}">„${fix(s.q)}“</h1>${s.plus?`<p class="hook" style="color:${f.acc};font-size:132px;margin-top:80px">${fix(s.plus)}</p>`:''}`,
-  text: (f, s) => `${s.h?`<h2 class="h" style="color:${f.fg}">${fix(s.h)}</h2>`:''}${(s.b||[]).map((t,i)=>`<p class="body" style="color:${s.akzent===i?f.acc:f.sub}">${fix(t)}</p>`).join('')}${s.rows?`<div class="rows">${s.rows.map(r=>`<div class="row" style="color:${f.acc};border-color:${f.line}">${fix(r)}</div>`).join('')}</div>`:''}${s.q?`<p class="klein" style="color:${f.lab}">${fix(s.q)}</p>`:''}`,
+  text: (f, s) => `${s.h?`<h2 class="h" style="color:${f.fg}">${fix(s.h)}</h2>`:''}${(s.b||[]).map((t,i)=>`<p class="body" style="color:${s.akzent===i?f.acc:f.sub}">${fix(t)}</p>`).join('')}${s.rows?`<div class="rows">${s.rows.map(r=>`<div class="row" style="color:${f.acc};border-color:${f.line}${s.rpx?`;font-size:${s.rpx}px;white-space:nowrap`:''}">${fix(r)}</div>`).join('')}</div>`:''}${s.q?`<p class="klein" style="color:${f.lab}">${fix(s.q)}</p>`:''}`,
   wort: (f, s) => `<h1 class="wort" style="color:${f.acc}">${s.w}</h1><p class="hook2" style="color:${f.fg};font-size:96px">${fix(s.hook)}</p>`,
   wahl: (f, s) => `<div class="opt" style="color:${f.fg}"><span class="ab" style="border-color:${f.sub};color:${f.sub}">A</span><span>${fix(s.a)}</span></div><p class="oder" style="color:${f.sub}">oder</p><div class="opt" style="color:${f.fg}"><span class="ab" style="border-color:${f.sub};color:${f.sub}">B</span><span>${fix(s.b)}</span></div>`,
   frage: (f, s) => `<h1 class="hook" style="color:#fff;font-size:${groesse(s.q, [[30,140],[50,124],[70,112],[999,100]])}px">${fix(s.q)}</h1>`,
