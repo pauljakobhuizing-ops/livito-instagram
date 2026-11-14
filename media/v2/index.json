@@ -266,5 +266,61 @@
  "stimmt17": {
   "dur": 17.2,
   "cover_ms": 1500
+ },
+ "stimmt18": {
+  "dur": 18,
+  "cover_ms": 1500
+ },
+ "r-frage32": {
+  "dur": 5,
+  "cover_ms": 1000
+ },
+ "r-lieber17": {
+  "dur": 5.5,
+  "cover_ms": 1500
+ },
+ "r-frage33": {
+  "dur": 6,
+  "cover_ms": 1000
+ },
+ "r-ticken21": {
+  "dur": 19.8,
+  "cover_ms": 1500
+ },
+ "r-frage34": {
+  "dur": 6,
+  "cover_ms": 1000
+ },
+ "stimmt19": {
+  "dur": 18.2,
+  "cover_ms": 1500
+ },
+ "r-frage35": {
+  "dur": 6,
+  "cover_ms": 1000
+ },
+ "r-lieber18": {
+  "dur": 5.5,
+  "cover_ms": 1500
+ },
+ "r-frage36": {
+  "dur": 5,
+  "cover_ms": 1000
+ },
+ "stimmt20": {
+  "dur": 17.4,
+  "cover_ms": 1500
+ },
+ "r-frage37": {
+  "dur": 6,
+  "cover_ms": 1000
+ },
+ "r-ticken22": {
+  "dur": 19.6,
+  "cover_ms": 1500
+ },
+ "r-frage38": {
+  "dur": 6,
+  "cover_ms": 1000
  }
 }
