@@ -204,7 +204,7 @@
   "cover_ms": 1500
  },
  "r-frage25": {
-  "dur": 5,
+  "dur": 6,
   "cover_ms": 1000
  },
  "r-wort16": {
@@ -216,11 +216,11 @@
   "cover_ms": 1000
  },
  "r-ticken20": {
-  "dur": 20,
+  "dur": 20.2,
   "cover_ms": 1500
  },
  "r-frage27": {
-  "dur": 5,
+  "dur": 6,
   "cover_ms": 1000
  },
  "stimmt11": {
@@ -257,6 +257,14 @@
  },
  "stimmt15": {
   "dur": 14.4,
+  "cover_ms": 1500
+ },
+ "stimmt16": {
+  "dur": 16.6,
+  "cover_ms": 1500
+ },
+ "stimmt17": {
+  "dur": 17.2,
   "cover_ms": 1500
  }
 }

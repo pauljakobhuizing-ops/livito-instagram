@@ -28,6 +28,7 @@ const MAG = {
   'fruehstart-rente': 'Frühstart-Rente: 10 Euro im Monat vom Staat für dein Kind',
   '4-prozent-regel': '4-Prozent-Regel',
   'lohnt-sich-bav': 'Betriebliche Altersvorsorge: lohnt sich das?',
+  'fuer-enkel-sparen': 'Für Enkel sparen: was wirklich sinnvoll ist',
 };
 const magZeile = slug => `Mehr dazu im Magazin: „${MAG[slug]}“. Link in der Bio.`;
 const TEILEN = 'Schreib’s gern in die Kommentare. Oder schick die Frage jemandem, mit dem du darüber reden magst.';
@@ -385,13 +386,13 @@ frageReel('r-frage17', '2026-11-16', 'Was kann Geld nicht kaufen, das du gerade 
 
 // ================= Paket 4 (24.–30.11.), Regel: jedes Thema nur einmal =================
 // ---------------- Dienstag, 24. November (7:30 kurz14, unten) ----------------
-{ id:'r-lieber15', datum:'2026-11-24', zeit:'11:30', typ:'reel', format:'lieber', hook:'Wahl', thema:'Verdienen oder sparen', magazin:'', buch:false,
-  text:'Mehr verdienen oder weniger ausgeben? 🌿\n\nBeides bringt dich weiter. Aber nur eins davon liegt meistens ganz in deiner Hand.\n\nA oder B? Schreib es in die Kommentare.',
-  loop:true, segs:[ { t:'wahl', a:'Mehr verdienen', b:'Weniger ausgeben', d:5.5 } ]},
+{ id:'r-lieber15', datum:'2026-11-24', zeit:'11:30', typ:'reel', format:'lieber', hook:'Wahl', thema:'Taschengeld', magazin:'', buch:false,
+  text:'Taschengeld jede Woche oder einmal im Monat? 🌿\n\nDie einen sagen: Kinder brauchen kurze Abstände. Die anderen: Nur so lernen sie, einzuteilen.\n\nA oder B? Und wie war es bei dir früher?',
+  loop:true, segs:[ { t:'wahl', a:'Taschengeld jede Woche', b:'Einmal im Monat', d:5.5 } ]},
 { id:'lieber11', datum:'2026-11-24', zeit:'16:30', typ:'karussell', format:'lieber', hook:'Wahl', thema:'Ausgaben aufschreiben', magazin:'', buch:false, hint:'Erst wählen, dann wischen →',
   text:'Jede Ausgabe aufschreiben oder einfach nach Gefühl? 🌿\n\nBeides kann funktionieren.\n\nA oder B? Schreib es in die Kommentare.',
   slides:[ { t:'wahl', a:'Jede Ausgabe aufschreiben', b:'Einfach nach Gefühl' }, { t:'ende', h:'Beides kann funktionieren.', sub:'A oder B?' } ]},
-frageReel('r-frage25', '2026-11-24', 'Was gönnst du dir ohne schlechtes Gewissen?', 'Was gönnst du dir ohne schlechtes Gewissen? 🌿\n\nNicht alles, was Geld kostet, muss sich falsch anfühlen.\n\nWas ist es bei dir?'),
+frageReel('r-frage25', '2026-11-24', 'Wofür hast du dich beim Geldausgeben zuletzt geschämt?', 'Wofür hast du dich beim Geldausgeben zuletzt geschämt? 🌿\n\nManche Käufe erzählt man gern. Andere lieber nicht.\n\nWelcher war es bei dir?'),
 
 // ---------------- Mittwoch, 25. November ----------------
 { id:'kurz08', datum:'2026-11-25', zeit:'07:30', typ:'karussell', format:'kurz', hook:'Frage', thema:'Weihnachtsgeld', magazin:'weihnachtsgeld-wohin-damit', buch:false,
@@ -404,12 +405,14 @@ frageReel('r-frage25', '2026-11-24', 'Was gönnst du dir ohne schlechtes Gewisse
    { t:'zwei', a:'Die Entscheidung fällt einmal.', b:'Nicht bei jedem Einkauf neu.' },
    { t:'ende', h:'Der Rest fließt in die Stufe, die bei dir gerade dran ist.', note:'Mehr im Magazin auf die-livito-methode.de' },
   ]},
-{ id:'r-wort16', datum:'2026-11-25', zeit:'11:30', typ:'reel', format:'wort', hook:'Wortspiel', thema:'Pleite', magazin:'', buch:false,
-  text:'Pleite heißt eigentlich: Flucht. 🌿\n\nDas Wort kommt über das Jiddische aus dem Hebräischen. Gemeint war die Flucht vor den Gläubigern, als man für Schulden noch ins Gefängnis kam.\n\nKanntest du das schon?',
+{ id:'stimmt16', datum:'2026-11-25', zeit:'11:30', typ:'reel', format:'stimmt', hook:'Behauptung', thema:'Sparen und Verzicht', magazin:'', buch:false,
+  text:'„Wer spart, verzichtet.“ Stimmt das? 🌿\n\nNicht unbedingt. Gespartes Geld ist nicht weg, es ist nur noch nicht ausgegeben. Und es kauft etwas, das es in keinem Laden gibt: Ruhe, wenn die Waschmaschine kaputtgeht. Wer spart, entscheidet nur später.\n\nFühlt sich Sparen für dich nach Verzicht an?',
   segs:[
-   { t:'wort', w:'Pleite', hook:'heißt eigentlich: Flucht.', d:3.5 },
-   { t:'text', h:'Das steckt im Wort', b:['Im Jiddischen hieß pleite: Flucht, Entrinnen.', 'Das Wort stammt aus dem Hebräischen.'], akzent:1, d:4.4 },
-   { t:'text', h:'Und warum Flucht?', b:['Wer seine Schulden nicht zahlen konnte, dem drohte früher Haft.', 'Also machte er sich davon.'], akzent:1, q:'Quellen: Wahrig Herkunftswörterbuch; Großes Wörterbuch der deutschen Sprache', d:4.6 },
+   { t:'zitat', q:'Wer spart, verzichtet.', d:2.6 },
+   { t:'zitat', q:'Wer spart, verzichtet.', dim:true, plus:'Nicht unbedingt.', d:2 },
+   { t:'text', b:['Gespartes Geld ist nicht weg.', 'Es ist nur noch nicht ausgegeben.'], akzent:1, d:3.4 },
+   { t:'text', b:['Und es kauft etwas, das es in keinem Laden gibt:', 'Ruhe, wenn die Waschmaschine kaputtgeht.'], akzent:1, d:3.8 },
+   { t:'text', b:['Wer spart, verzichtet nicht.', 'Er entscheidet nur später.'], akzent:1, d:3.2 },
   ]},
 { id:'ticken13', datum:'2026-11-25', zeit:'16:30', typ:'karussell', format:'ticken', hook:'Behauptung', thema:'Planungsfehlschluss', magazin:'', buch:false,
   text:'Wir planen fast immer zu knapp. 🌿\n\nStudierende schätzten, wie lange sie für ihre Abschlussarbeit brauchen. Im Schnitt dauerte es deutlich länger, und nur rund ein Drittel lag richtig. Mit Geld ist es ähnlich: Ausgaben werden fast immer höher als gedacht.\n\nWie gut schätzt du deine Ausgaben im Dezember?',
@@ -421,23 +424,23 @@ frageReel('r-frage25', '2026-11-24', 'Was gönnst du dir ohne schlechtes Gewisse
    { t:'zwei', a:'Plan mit Luft.', b:'Genau dafür gibt es den Puffer.' },
    { t:'ende', h:'Wie gut schätzt du deine Ausgaben im Dezember?' },
   ]},
-frageReel('r-frage26', '2026-11-25', 'Wofür gibst du heute Geld aus, wofür früher nie?', 'Wofür gibst du heute Geld aus, wofür früher nie? 🌿\n\nWas uns etwas wert ist, verändert sich mit den Jahren.\n\nWas ist es bei dir?'),
+frageReel('r-frage26', '2026-11-25', 'Welchen Satz über Geld sagten deine Großeltern immer?', 'Welchen Satz über Geld sagten deine Großeltern immer? 🌿\n\nViele dieser Sätze tragen wir noch mit uns herum, ob wir wollen oder nicht.\n\nWelcher war es bei euch?'),
 
 // ---------------- Donnerstag, 26. November ----------------
-{ id:'kurz09', datum:'2026-11-26', zeit:'07:30', typ:'karussell', format:'kurz', hook:'Frage', thema:'Spenden absetzen', magazin:'spenden-absetzen', buch:false,
-  text:'Spendest du zu Weihnachten? Dann setz es auch ab. 🌿\n\nSpenden an gemeinnützige Organisationen sind Sonderausgaben. Bis 300 € reicht der Kontoauszug als Nachweis. Für 2026 zählt, was bis zum 31. Dezember überwiesen ist.\n\n' + magZeile('spenden-absetzen') + '\n\nAn wen spendest du gern?',
+{ id:'kurz15', datum:'2026-11-26', zeit:'07:30', typ:'karussell', format:'kurz', hook:'Zahl', thema:'Für Enkel sparen', magazin:'fuer-enkel-sparen', buch:false,
+  text:'Lieber kein Spielzeug mehr, sondern etwas, das bleibt? 🌿\n\nSchon 25 € im Monat ab Geburt werden bis zum 18. Geburtstag im Modell rund 8.600 €. Vorher sollten Großeltern zwei Dinge klären: ob die eigene Absicherung steht und auf wessen Namen das Geld läuft. Und mit den Eltern reden.\n\n' + magZeile('fuer-enkel-sparen') + '\n\nSpart bei euch jemand für die Enkel?',
   slides:[
-   { t:'hook', l1:'Spendest du zu Weihnachten?', l2:'Dann setz es auch ab.' },
-   { t:'text', h:'So geht es', b:['Spenden an gemeinnützige Organisationen sind Sonderausgaben.', 'Absetzbar bis 20 % deiner Einkünfte.'], q:'§ 10b EStG' },
-   { t:'text', h:'Der Nachweis', rows:[['Bis 300 €','Kontoauszug'],['Darüber','Spendenquittung']], b2:['Für 2026 zählt, was bis zum 31. Dezember überwiesen ist.'], q:'§ 50 EStDV' },
-   { t:'text', h:'Beispiel: 35 € im Monat', rows:[['Spenden im Jahr','420 €'],['Steuerersparnis bei 30 % Steuersatz','rund 115 €',true]], q:'Ohne Soli und Kirchensteuer, nach Abzug des Pauschbetrags von 36 €.' },
-   { t:'zwei', a:'Die Livito-Methode gibt 1 % vom Einkommen.', b:'Per Dauerauftrag, das ganze Jahr.' },
-   { t:'ende', h:'Geben ist kein Rest. Es gehört von Anfang an dazu.', note:'Mehr im Magazin auf die-livito-methode.de' },
+   { t:'hook', l1:'25 € im Monat für die Enkel.', l2:'Was daraus werden kann.' },
+   { t:'text', h:'Ab Geburt bis zum 18. Geburtstag', rows:[['25 € im Monat','rund 8.600 €',true],['50 € im Monat','rund 17.300 €'],['100 € im Monat','rund 34.500 €']], q:'Modellrechnung mit 5 % Rendite pro Jahr, keine Prognose.' },
+   { t:'text', h:'Erst die eigene Absicherung', b:['Brauchst du später selbst Geld, etwa für die Pflege, kann ein Geschenk zurückgefordert werden.', 'Darum zuerst das eigene Polster.'], q:'§ 528 BGB' },
+   { t:'text', h:'Auf wessen Namen?', rows:[['Eigener Name','du behältst die Kontrolle'],['Name der Eltern','fließt in ihre Vorsorge'],['Name des Enkels','gehört ihm, ab 18 allein']] },
+   { t:'zwei', a:'Sprecht mit den Eltern.', b:'Dann wird aus kleinen Beträgen ein Grundstock.' },
+   { t:'ende', h:'Der frühe Start ist der Hebel, nicht die Höhe.', note:'Mehr im Magazin auf die-livito-methode.de' },
   ]},
 { id:'r-ticken20', datum:'2026-11-26', zeit:'11:30', typ:'reel', format:'ticken', hook:'Behauptung', thema:'Preise mit 9', magazin:'', buch:false,
-  text:'Teurer, und trotzdem öfter gekauft. 🌿\n\nIn einem Versandkatalog stieg ein Kleid von 34 auf 39 Dollar. Die Nachfrage stieg um ein Drittel. Eine 9 am Ende wirkt wie ein Sonderangebot, auch wenn keins da ist.\n\nAchtest du auf den Preis oder auf das Gefühl?',
+  text:'Eine 9 am Ende verkauft mehr, selbst wenn der Preis steigt. 🌿\n\nIn einem Versandkatalog stieg ein Kleid von 34 auf 39 Dollar. Die Nachfrage stieg um ein Drittel. Eine 9 am Ende wirkt wie ein Sonderangebot, auch wenn keins da ist.\n\nAchtest du auf den Preis oder auf das Gefühl?',
   segs:[
-   { t:'hook', l1:'Teurer, und trotzdem öfter gekauft.', d:2.8 },
+   { t:'hook', l1:'Eine 9 am Ende verkauft mehr.', l2:'Selbst wenn der Preis steigt.', d:3 },
    { t:'text', h:'Das Experiment', b:['Ein Versandkatalog verkaufte dasselbe Kleid zu verschiedenen Preisen.'], d:3.4 },
    { t:'text', h:'Das Ergebnis', rows:['34 Dollar: Ausgangswert','39 Dollar: ein Drittel mehr Nachfrage','44 Dollar: kein Unterschied'], rpx:58, q:'Anderson und Simester, Harvard Business Review, 2003 (dort in Dollar).', d:4.6 },
    { t:'text', b:['Eine 9 am Ende sieht nach Angebot aus.', 'Auch wenn keins da ist.'], akzent:1, d:3.6 },
@@ -446,7 +449,7 @@ frageReel('r-frage26', '2026-11-25', 'Wofür gibst du heute Geld aus, wofür fr�
 { id:'lieber12', datum:'2026-11-26', zeit:'16:30', typ:'karussell', format:'lieber', hook:'Wahl', thema:'Sparen zuerst', magazin:'', buch:false, hint:'Erst wählen, dann wischen →',
   text:'Erst sparen, dann ausgeben? Oder erst ausgeben, Rest sparen? 🌿\n\nDie Reihenfolge macht mehr aus, als man denkt.\n\nA oder B?',
   slides:[ { t:'wahl', a:'Erst sparen, dann ausgeben', b:'Erst ausgeben, Rest sparen' }, { t:'ende', h:'Die Reihenfolge macht mehr aus, als man denkt.', sub:'A oder B?' } ]},
-frageReel('r-frage27', '2026-11-26', 'Wann bist du beim Thema Geld am ruhigsten?', 'Wann bist du beim Thema Geld am ruhigsten? 🌿\n\nFür manche ist es der Tag nach dem Gehalt. Für andere der Moment, wenn alles geregelt ist.\n\nWann ist es bei dir?'),
+frageReel('r-frage27', '2026-11-26', 'Wie viel Bargeld hast du gerade im Portemonnaie?', 'Wie viel Bargeld hast du gerade im Portemonnaie? 🌿\n\nDie einen haben nie Bargeld dabei. Die anderen nie unter 50 €.\n\nWie viel ist es bei dir, ungefähr?'),
 
 // ---------------- Freitag, 27. November (Black Friday) ----------------
 { id:'wort11', datum:'2026-11-27', zeit:'07:30', typ:'karussell', format:'wort', hook:'Wortspiel', thema:'Budget', magazin:'', buch:false,
@@ -476,7 +479,7 @@ frageReel('r-frage27', '2026-11-26', 'Wann bist du beim Thema Geld am ruhigsten?
    { t:'zwei', a:'Eine Faustregel.', b:'Keine Garantie.' },
    { t:'ende', h:'Sie zeigt, wofür du heute sparst.', note:'Mehr im Magazin auf die-livito-methode.de' },
   ]},
-frageReel('r-frage28', '2026-11-27', 'Was schenkst du, wenn du nichts kaufen willst?', 'Was schenkst du, wenn du nichts kaufen willst? 🌿\n\nZeit, etwas Selbstgemachtes, eine Erinnerung. Die schönsten Geschenke kosten oft wenig.\n\nWas schenkst du?'),
+frageReel('r-frage28', '2026-11-27', 'Was war das beste Geschenk, das nichts gekostet hat?', 'Was war das beste Geschenk, das nichts gekostet hat? 🌿\n\nDie Geschenke, an die man sich lange erinnert, kosten oft am wenigsten.\n\nWelches war es bei dir?'),
 
 // ---------------- Samstag, 28. November ----------------
 { id:'wort12', datum:'2026-11-28', zeit:'07:30', typ:'karussell', format:'wort', hook:'Wortspiel', thema:'Rabatt', magazin:'', buch:false,
@@ -506,7 +509,7 @@ frageReel('r-frage28', '2026-11-27', 'Was schenkst du, wenn du nichts kaufen wil
    { t:'zwei', a:'Geld löst Geldsorgen.', b:'Andere Sorgen löst es selten.' },
    { t:'ende', h:'Was würde dich glücklicher machen als mehr Geld?' },
   ]},
-frageReel('r-frage29', '2026-11-28', 'Welche Gewohnheit hat dir beim Geld am meisten geholfen?', 'Welche Gewohnheit hat dir beim Geld am meisten geholfen? 🌿\n\nOft sind es kleine Dinge, die man einmal einrichtet und dann vergisst.\n\nWas ist es bei dir?'),
+frageReel('r-frage29', '2026-11-28', 'Welche Gewohnheit kostet dich jeden Monat am meisten?', 'Welche Gewohnheit kostet dich jeden Monat am meisten? 🌿\n\nOft ist es nicht der große Kauf, sondern das Kleine, das jeden Tag passiert.\n\nWas ist es bei dir?'),
 
 // ---------------- Sonntag, 29. November (1. Advent) ----------------
 { id:'rechnung09', datum:'2026-11-29', zeit:'07:30', typ:'karussell', format:'rechnung', hook:'Zahl', thema:'Frühstart-Rente', magazin:'fruehstart-rente', buch:false,
@@ -532,7 +535,7 @@ frageReel('r-frage29', '2026-11-28', 'Welche Gewohnheit hat dir beim Geld am mei
    { t:'zwei', a:'Kein Ding mehr im Regal.', b:'Sondern ein Plan, der bleibt.' },
    { t:'ende', h:'die-livito-methode.de/verschenken', sub:'Link in der Bio.' },
   ]},
-frageReel('r-frage30', '2026-11-29', 'Wofür hast du zuletzt gern gespart?', 'Wofür hast du zuletzt gern gespart? 🌿\n\nSparen fühlt sich anders an, wenn man weiß, wofür.\n\nWas war es bei dir?'),
+frageReel('r-frage30', '2026-11-29', 'Wofür sparst du gerade, und wie lange noch?', 'Wofür sparst du gerade, und wie lange noch? 🌿\n\nEin Ziel mit Datum fühlt sich anders an als Sparen ins Blaue.\n\nWofür ist es bei dir?'),
 
 // ---------------- Montag, 30. November ----------------
 { id:'kurz10', datum:'2026-11-30', zeit:'07:30', typ:'karussell', format:'kurz', hook:'Zahl', thema:'Eigenkapital', magazin:'eigenkapital-immobilie', buch:false,
@@ -545,12 +548,14 @@ frageReel('r-frage30', '2026-11-29', 'Wofür hast du zuletzt gern gespart?', 'Wo
    { t:'zwei', a:'Lieber ein paar Jahre länger sparen,', b:'als jeden Monat eine Rate, die drückt.' },
    { t:'ende', h:'Ein Zuhause soll Sicherheit bringen, keine Dauersorge.', note:'Mehr im Magazin auf die-livito-methode.de' },
   ]},
-{ id:'r-wort17', datum:'2026-11-30', zeit:'11:30', typ:'reel', format:'wort', hook:'Wortspiel', thema:'Moneten', magazin:'', buch:false,
-  text:'Münze und Moneten haben dieselbe Herkunft. 🌿\n\nIm alten Rom wurde Geld im Tempel der Göttin Juno Moneta geprägt. Aus ihrem Beinamen wurde das lateinische Wort für Münzstätte, und daraus Münze, Moneten und das englische money.\n\nKanntest du das schon?',
+{ id:'stimmt17', datum:'2026-11-30', zeit:'11:30', typ:'reel', format:'stimmt', hook:'Behauptung', thema:'Gold', magazin:'', buch:false,
+  text:'„Gold ist die sicherste Geldanlage.“ Stimmt das? 🌿\n\nNicht, wenn sicher heißt: planbar. Der Goldpreis schwankt stark. Im Jahresschnitt fiel er von rund 1.660 € je Unze 2012 auf rund 1.060 € 2015. Zinsen zahlt Gold keine. Sicher fühlt sich anders an: wenn du weißt, was dein Geld morgen wert ist.\n\nHast du Gold?',
   segs:[
-   { t:'wort', w:'Moneten', hook:'kommen aus einem Tempel.', d:3.5 },
-   { t:'text', h:'Das steckt im Wort', b:['Im alten Rom wurde Geld beim Tempel der Juno Moneta geprägt.', 'Moneta hieß bald: Münzstätte.'], akzent:1, d:4.6 },
-   { t:'text', h:'Und daraus wurde', rows:['Münze','Moneten','money'], q:'Quellen: Online Etymology Dictionary; Duden', d:4 },
+   { t:'zitat', q:'Gold ist die sicherste Geldanlage.', d:2.8 },
+   { t:'zitat', q:'Gold ist die sicherste Geldanlage.', dim:true, plus:'Nicht, wenn sicher heißt: planbar.', d:2.4 },
+   { t:'text', h:'Goldpreis je Unze, Jahresschnitt:', rows:['2012: rund 1.660 €','2015: rund 1.060 €'], q:'Jahresdurchschnitte in Euro, Kettner Edelmetalle', d:4 },
+   { t:'text', b:['Dazu kommt: Gold zahlt keine Zinsen.'], akzent:0, d:2.8 },
+   { t:'text', b:['Sicher fühlt sich anders an:', 'wenn du weißt, was dein Geld morgen wert ist.'], akzent:1, d:3.6 },
   ]},
 { id:'wort13', datum:'2026-11-30', zeit:'16:30', typ:'karussell', format:'wort', hook:'Wortspiel', thema:'Zins', magazin:'zinseszins-erklaert', buch:false,
   text:'Der Zins war früher eine Abgabe. 🌿\n\nDas Wort kommt vom lateinischen census: Schätzung des Vermögens und die Steuer darauf. Im Mittelalter war der Zins eine Abgabe an den Grundherrn. Heute arbeitet er, wenn du es richtig machst, für dich.\n\n' + magZeile('zinseszins-erklaert') + '\n\nZahlst du gerade Zinsen oder bekommst du welche?',
@@ -560,7 +565,7 @@ frageReel('r-frage30', '2026-11-29', 'Wofür hast du zuletzt gern gespart?', 'Wo
    { t:'text', h:'Und dann?', b:['Im Mittelalter war der Zins eine Abgabe an den Grundherrn.', 'Später der Preis für geliehenes Geld.'], q:'Quellen: Duden; Wahrig Herkunftswörterbuch' },
    { t:'ende', h:'Zahlst du gerade Zinsen oder bekommst du welche?', note:'Mehr im Magazin auf die-livito-methode.de' },
   ]},
-frageReel('r-frage31', '2026-11-30', 'Was wünschst du dir für dein Geld im nächsten Jahr?', 'Was wünschst du dir für dein Geld im nächsten Jahr? 🌿\n\nKein Vorsatz, nur ein Wunsch.\n\nWas wäre es bei dir?'),
+frageReel('r-frage31', '2026-11-30', 'Was soll bei deinem Geld 2027 anders sein als 2026?', 'Was soll bei deinem Geld 2027 anders sein als 2026? 🌿\n\nKein Vorsatz, nur eine Sache.\n\nWas wäre es bei dir?'),
 
 // ---------------- Entwürfe AVD-Artikel (Datum offen, Paket 3/4) ----------------
 { id:'kurz12', datum:'2026-11-17', zeit:'07:30', typ:'karussell', format:'kurz', hook:'Zahl', thema:'AVD als Paar', magazin:'altersvorsorgedepot-paare', buch:false,
