@@ -470,7 +470,7 @@ frageReel('r-frage27', '2026-11-26', 'Wie viel Bargeld hast du gerade im Portemo
    { t:'text', b:['Am meisten spart, was du nicht kaufst.'], akzent:1, d:2.8 },
   ]},
 { id:'rechnung10', datum:'2026-11-27', zeit:'16:30', typ:'karussell', format:'rechnung', hook:'Zahl', thema:'4-Prozent-Regel', magazin:'4-prozent-regel', buch:false,
-  text:'Wie viel Vermögen brauchst du für 1.000 € im Monat? 🌿\n\nDie 4-Prozent-Regel sagt: rund 300.000 €. Wer im ersten Jahr 4 % entnimmt und danach nur die Inflation draufschlägt, hatte in der Vergangenheit gute Chancen, dass das Geld 30 Jahre reicht. Eine Garantie ist das nicht.\n\n' + magZeile('4-prozent-regel') + '\n\nWie viel möchtest du im Ruhestand dazu haben?',
+  text:'Wie viel Vermögen brauchst du für 1.000 € im Monat? 🌿\n\nDie 4-Prozent-Regel sagt: rund 300.000 €. Wer im ersten Jahr 4 % entnimmt und danach nur die Inflation draufschlägt, hatte in der Vergangenheit gute Chancen, dass das Geld 30 Jahre reicht. Eine Garantie ist das nicht.\n\nWie viel möchtest du im Ruhestand dazu haben?',
   slides:[
    { t:'hook', l1:'Wie viel Vermögen für 1.000 € im Monat?', l2:'Die 4-Prozent-Regel.' },
    { t:'text', h:'Die Regel', b:['Im ersten Jahr 4 % des Vermögens entnehmen.', 'Danach jedes Jahr nur die Inflation draufschlagen.'] },
