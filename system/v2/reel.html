@@ -48,7 +48,7 @@ const RSEG = {
 const FADE = .35;
 let SEGS = [], DUR = 0, MUSTER = false, LOOP = false;
 function setPost(id) {
-  const post = POSTS.find(p => p.id === id); const f = F[post.format];
+  const post = POSTS.find(p => p.id === id); const f = FREEL[post.format] || F[post.format];
   $('stage').style.background = f.bg; $('label').textContent = f.label; $('label').style.color = f.lab;
   MUSTER = post.format === 'frage';
   $('muster').innerHTML = MUSTER ? Array.from({length: 9}, () => signet('#FFFFFF', true)).join('') : '';

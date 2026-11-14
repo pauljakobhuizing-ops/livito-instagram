@@ -16,6 +16,11 @@ const F = {
   frage:    Object.assign({ label:'Eine Frage zum Geld', bg:'#1D4442', klang:'1-flaeche.wav' }, DUNKEL),
 };
 const ENDE = Object.assign({ bg:'#1D4442' }, DUNKEL);
+// Reels nie auf hellem Grund: Instagram legt rechts weiße Symbole über das Video (Entscheidung Paul 14.11.2026).
+const FREEL = {
+  stimmt: Object.assign({ label:'Stimmt das?', bg:'#201E1A', klang:'3-puls.wav' }, DUNKEL, { lab:'#B8791E' }),
+  wort:   Object.assign({ label:'Geldwörter', bg:'#201E1A', klang:'2-klavier.wav' }, DUNKEL, { lab:'#B8791E' }),
+};
 
 // Typografie: geschuetzte Leerzeichen zwischen Zahl und Einheit, ~ als festes Leerzeichen, kein Einzelwort am Zeilenende.
 const fix = s => String(s||'').replace(/~/g,' ')

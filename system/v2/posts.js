@@ -615,7 +615,7 @@ frageReel('r-frage31', '2026-11-30', 'Was wünschst du dir für dein Geld im nä
    { t:'zwei', a:'Mach das Richtige zur Voreinstellung.', b:'Ein Dauerauftrag ist so ein Häkchen.' },
    { t:'ende', h:'Was läuft bei dir schon automatisch?' },
   ]},
-frageReel('r-frage18', '2026-11-17', 'Worauf bist du beim Thema Geld stolz?', 'Worauf bist du beim Thema Geld stolz? 🌿\n\nÜber Fehler mit Geld wird viel geredet. Über das, was gelungen ist, kaum.\n\nWas ist dir gelungen?'),
+frageReel('r-frage18', '2026-11-17', 'Weiß dein:e Partner:in, wie viel du verdienst?', 'Weiß dein:e Partner:in, wie viel du verdienst? 🌿\n\nViele Paare teilen Wohnung, Alltag und Pläne. Beim Gehalt wird es oft still.\n\nWie ist es bei euch?'),
 
 // ---------------- Mittwoch, 18. November ----------------
 { id:'wort09', datum:'2026-11-18', zeit:'07:30', typ:'karussell', format:'wort', hook:'Wortspiel', thema:'Bilanz', magazin:'', buch:false,
@@ -626,9 +626,9 @@ frageReel('r-frage18', '2026-11-17', 'Worauf bist du beim Thema Geld stolz?', 'W
    { t:'text', h:'Und das passt bis heute', b:['Eine Bilanz hat zwei Seiten.', 'Am Ende müssen beide gleich schwer~sein.'], q:'Quellen: Online Etymology Dictionary; Kommunalwiki der Heinrich-Böll-Stiftung' },
    { t:'ende', h:'Wie fällt deine Bilanz für dieses Jahr aus?' },
   ]},
-{ id:'r-lieber14', datum:'2026-11-18', zeit:'11:30', typ:'reel', format:'lieber', hook:'Wahl', thema:'Mobilität', magazin:'', buch:false,
-  text:'Ein eigenes Auto oder lieber teilen? 🌿\n\nFür die einen Freiheit, für die anderen ein teures Stehzeug.\n\nA oder B? Schreib es in die Kommentare.',
-  loop:true, segs:[ { t:'wahl', a:'Ein eigenes Auto', b:'Carsharing und Bahn', d:5.5 } ]},
+{ id:'r-lieber14', datum:'2026-11-18', zeit:'11:30', typ:'reel', format:'lieber', hook:'Wahl', thema:'Rechnung teilen', magazin:'', buch:false,
+  text:'Essen mit Freunden: die Rechnung genau aufteilen oder großzügig abwechseln? 🌿\n\nBeim Bezahlen zeigt sich, wie entspannt eine Runde mit Geld ist.\n\nA oder B? Schreib es in die Kommentare.',
+  loop:true, segs:[ { t:'wahl', a:'Essen mit Freunden: genau aufteilen', b:'Großzügig abwechseln', d:5.5 } ]},
 { id:'ticken12', datum:'2026-11-18', zeit:'16:30', typ:'karussell', format:'ticken', hook:'Behauptung', thema:'Großer Schein', magazin:'', buch:false,
   text:'Ein großer Schein bleibt länger im Portemonnaie. 🌿\n\nIn einem Experiment kauften Studierende viel seltener Süßigkeiten, wenn sie ihr Geld als einen Schein bekamen statt in Münzen. Was schwerer auszugeben ist, bleibt eher.\n\nWelches Geld gibst du am leichtesten aus?',
   slides:[
@@ -639,7 +639,7 @@ frageReel('r-frage18', '2026-11-17', 'Worauf bist du beim Thema Geld stolz?', 'W
    { t:'zwei', a:'Was schwerer auszugeben ist, bleibt eher.', b:'Darum hat Erspartes ein eigenes Konto.' },
    { t:'ende', h:'Welches Geld gibst du am leichtesten aus?' },
   ]},
-frageReel('r-frage19', '2026-11-18', 'Wofür ist dir dein Geld zu schade?', 'Wofür ist dir dein Geld zu schade? 🌿\n\nJeder hat Dinge, für die er nie zahlen würde, egal wie viel auf dem Konto liegt.\n\nWas ist es bei dir?'),
+frageReel('r-frage19', '2026-11-18', 'Was kaufst du nur, damit andere es sehen?', 'Was kaufst du nur, damit andere es sehen? 🌿\n\nEin Teil unserer Ausgaben ist für uns. Ein anderer für die Blicke der anderen.\n\nWas ist es bei dir? Ehrlich.'),
 
 // ---------------- Donnerstag, 19. November ----------------
 { id:'rechnung06', datum:'2026-11-19', zeit:'07:30', typ:'karussell', format:'rechnung', hook:'Zahl', thema:'Notgroschen ansparen', magazin:'notgroschen-hoehe', buch:false,
@@ -653,10 +653,10 @@ frageReel('r-frage19', '2026-11-18', 'Wofür ist dir dein Geld zu schade?', 'Wof
    { t:'ende', h:'Der erste Notgroschen ist der Anfang von allem anderen.', note:'Mehr im Magazin auf die-livito-methode.de' },
   ]},
 { id:'stimmt08', datum:'2026-11-19', zeit:'11:30', typ:'reel', format:'stimmt', hook:'Behauptung', thema:'Mehr Gehalt', magazin:'grundlagen', buch:false,
-  text:'„Mit mehr Gehalt wären meine Geldsorgen weg.“ Stimmt das? 🌿\n\nNicht unbedingt. Mit dem Gehalt wachsen oft auch die Ausgaben, und nach ein paar Monaten fühlt sich das neue Niveau normal an. Ruhe bringt ein System, das bei jedem Einkommen läuft.\n\n' + magZeile('grundlagen') + '\n\nWas hast du mit deiner letzten Gehaltserhöhung gemacht?',
+  text:'„Mit 500 € mehr im Monat wären meine Geldsorgen weg.“ Stimmt das? 🌿\n\nNicht unbedingt. Mit dem Gehalt wachsen oft auch die Ausgaben, und nach ein paar Monaten fühlt sich das neue Niveau normal an. Ruhe bringt ein System, das bei jedem Einkommen läuft.\n\n' + magZeile('grundlagen') + '\n\nWas hast du mit deiner letzten Gehaltserhöhung gemacht?',
   segs:[
-   { t:'zitat', q:'Mit mehr Gehalt wären meine Geldsorgen weg.', d:3.2 },
-   { t:'zitat', q:'Mit mehr Gehalt wären meine Geldsorgen weg.', dim:true, plus:'Nicht unbedingt.', d:2 },
+   { t:'zitat', q:'Mit 500 € mehr im Monat wären meine Geldsorgen weg.', d:3.2 },
+   { t:'zitat', q:'Mit 500 € mehr im Monat wären meine Geldsorgen weg.', dim:true, plus:'Nicht unbedingt.', d:2 },
    { t:'text', b:['Mit dem Gehalt wachsen oft auch die Ausgaben.', 'Das neue Niveau fühlt sich bald normal an.'], akzent:1, d:3.8 },
    { t:'text', h:'Was hilft:', rows:['Einen Teil jeder Erhöhung','gleich per Dauerauftrag sparen'], d:3.6 },
    { t:'text', b:['Ruhe bringt kein bestimmtes Gehalt.', 'Sondern ein System, das bei jedem Einkommen läuft.'], akzent:1, d:3.8 },
@@ -664,7 +664,7 @@ frageReel('r-frage19', '2026-11-18', 'Wofür ist dir dein Geld zu schade?', 'Wof
 { id:'lieber09', datum:'2026-11-19', zeit:'16:30', typ:'karussell', format:'lieber', hook:'Wahl', thema:'Schenken', magazin:'', buch:false, hint:'Erst wählen, dann wischen →',
   text:'Ein ausgesuchtes Geschenk oder lieber Geld? 🌿\n\nDie ehrliche Antwort zählt.\n\nA oder B?',
   slides:[ { t:'wahl', a:'Ein ausgesuchtes Geschenk', b:'Geld als Geschenk' }, { t:'ende', h:'Die ehrliche Antwort zählt.', sub:'A oder B?' } ]},
-frageReel('r-frage20', '2026-11-19', 'Woran merkst du, dass es dir finanziell gut geht?', 'Woran merkst du, dass es dir finanziell gut geht? 🌿\n\nFür manche ist es ein Kontostand. Für andere, dass sie nicht mehr nachrechnen müssen.\n\nWoran merkst du es?'),
+frageReel('r-frage20', '2026-11-19', 'Hast du schon mal geschwindelt, was etwas gekostet hat?', 'Hast du schon mal geschwindelt, was etwas gekostet hat? 🌿\n\nMal wird ein Preis kleiner gemacht, mal größer. Fast jeder kennt das.\n\nIn welche Richtung schwindelst du?'),
 
 // ---------------- Freitag, 20. November ----------------
 { id:'kurz06', datum:'2026-11-20', zeit:'07:30', typ:'karussell', format:'kurz', hook:'Neuigkeit', thema:'Später bezahlen ab heute', magazin:'buy-now-pay-later-neue-regeln', buch:false,
@@ -677,12 +677,13 @@ frageReel('r-frage20', '2026-11-19', 'Woran merkst du, dass es dir finanziell gu
    { t:'zwei', a:'Später bezahlen war schon immer eine Schuld.', b:'Jetzt steht es auch im Gesetz.' },
    { t:'ende', h:'Kauf nur, was du heute bezahlen könntest.', note:'Mehr im Magazin auf die-livito-methode.de' },
   ]},
-{ id:'r-wort15', datum:'2026-11-20', zeit:'11:30', typ:'reel', format:'wort', hook:'Wortspiel', thema:'Dollar', magazin:'', buch:false,
-  text:'Der Dollar hat einen deutschen Namen. 🌿\n\nIm böhmischen Joachimsthal wurde ab 1519 eine Silbermünze geprägt: der Joachimstaler, kurz Taler. Über das niederdeutsche Daler wurde daraus der Dollar.\n\nKanntest du das schon?',
+{ id:'stimmt15', datum:'2026-11-20', zeit:'11:30', typ:'reel', format:'stimmt', hook:'Behauptung', thema:'Steuererklärung', magazin:'', buch:false,
+  text:'„Eine Steuererklärung lohnt sich bei mir nicht.“ Stimmt das? 🌿\n\nOft doch. Für 2022 bekamen Arbeitnehmer:innen, denen das Finanzamt etwas erstattet hat, im Schnitt 1.240 € zurück. So meldet es das Statistische Bundesamt. Freiwillig geht die Erklärung vier Jahre rückwirkend, für 2022 noch bis zum 31. Dezember 2026.\n\nHast du deine schon gemacht?',
   segs:[
-   { t:'wort', w:'Dollar', hook:'hat einen deutschen Namen.', d:3.5 },
-   { t:'text', h:'Das steckt im Wort', b:['In Joachimsthal in Böhmen wurde ab 1519 eine Silbermünze geprägt.', 'Der Joachimstaler, kurz: Taler.'], akzent:1, d:4.6 },
-   { t:'text', h:'Und dann?', b:['Im Niederdeutschen hieß er Daler.', 'Daraus wurde der Dollar.'], akzent:1, q:'Quellen: Wahrig Herkunftswörterbuch; Online Etymology Dictionary', d:4.4 },
+   { t:'zitat', q:'Eine Steuererklärung lohnt sich bei mir nicht.', d:3.2 },
+   { t:'zitat', q:'Eine Steuererklärung lohnt sich bei mir nicht.', dim:true, plus:'Oft doch.', d:2 },
+   { t:'text', h:'Wer Geld zurückbekam, bekam im Schnitt:', rows:['1.240 €'], q:'Statistisches Bundesamt, Steuerjahr 2022', d:3.8 },
+   { t:'text', b:['Freiwillig geht es vier Jahre rückwirkend.', 'Für 2022 noch bis zum 31. Dezember 2026.'], akzent:1, d:3.8 },
   ]},
 { id:'ticken08', datum:'2026-11-20', zeit:'16:30', typ:'karussell', format:'ticken', hook:'Frage', thema:'Versunkene Kosten', magazin:'', buch:false,
   text:'Zwei Skireisen, dasselbe Wochenende. Welche nimmst du? 🌿\n\nDie meisten wählen die teurere. Obwohl sie sich auf die andere mehr freuen.\n\nWie hättest du entschieden?',
@@ -694,7 +695,7 @@ frageReel('r-frage20', '2026-11-19', 'Woran merkst du, dass es dir finanziell gu
    { t:'zwei', a:'Weg ist weg.', b:'Gute Entscheidungen schauen nach vorn.' },
    { t:'ende', h:'Wie hättest du entschieden?' },
   ]},
-frageReel('r-frage21', '2026-11-20', 'Wer ist dein Vorbild im Umgang mit Geld?', 'Wer ist dein Vorbild im Umgang mit Geld? 🌿\n\nOft ist es nicht die Person mit dem meisten Geld, sondern die mit der meisten Ruhe.\n\nWer fällt dir ein?'),
+frageReel('r-frage21', '2026-11-20', 'Wer in deiner Familie konnte nicht mit Geld umgehen?', 'Wer in deiner Familie konnte nicht mit Geld umgehen? 🌿\n\nFast jede Familie hat so jemanden. Oft lernt man von ihm oder ihr mehr als von allen anderen.\n\nWas hast du daraus mitgenommen?'),
 
 // ---------------- Samstag, 21. November (7:30 kurz13, oben) ----------------
 { id:'stimmt09', datum:'2026-11-21', zeit:'11:30', typ:'reel', format:'stimmt', hook:'Behauptung', thema:'Notgroschen wo', magazin:'notgroschen-wo-anlegen', buch:false,
@@ -709,7 +710,7 @@ frageReel('r-frage21', '2026-11-20', 'Wer ist dein Vorbild im Umgang mit Geld?',
 { id:'lieber10', datum:'2026-11-21', zeit:'16:30', typ:'karussell', format:'lieber', hook:'Wahl', thema:'Rente', magazin:'', buch:false, hint:'Erst wählen, dann wischen →',
   text:'Früher in Rente mit weniger Geld oder später mit mehr? 🌿\n\nEine Frage, die sich mit dem Alter oft ändert.\n\nA oder B? Und wie alt bist du?',
   slides:[ { t:'wahl', a:'Früher in Rente, weniger Geld', b:'Später in Rente, mehr Geld' }, { t:'ende', h:'Eine Frage, die sich mit dem Alter oft ändert.', sub:'A oder B? Und wie alt bist du?' } ]},
-frageReel('r-frage22', '2026-11-21', 'Worauf verzichtest du leicht, worauf schwer?', 'Worauf verzichtest du leicht, worauf schwer? 🌿\n\nDie Antwort sagt viel darüber, was dir wirklich wichtig ist.\n\nWas steht auf beiden Listen?'),
+frageReel('r-frage22', '2026-11-21', 'Worauf würdest du nie verzichten, auch wenn das Geld knapp wird?', 'Worauf würdest du nie verzichten, auch wenn das Geld knapp wird? 🌿\n\nIn knappen Monaten zeigt sich, was wirklich zählt.\n\nWas ist es bei dir?'),
 
 // ---------------- Sonntag, 22. November ----------------
 { id:'wort10', datum:'2026-11-22', zeit:'07:30', typ:'karussell', format:'wort', hook:'Wortspiel', thema:'Euro', magazin:'', buch:false,
@@ -721,9 +722,9 @@ frageReel('r-frage22', '2026-11-21', 'Worauf verzichtest du leicht, worauf schwe
    { t:'ende', h:'Weißt du noch, was du mit deinem ersten Euro gekauft hast?' },
   ]},
 { id:'r-ticken19', datum:'2026-11-22', zeit:'11:30', typ:'reel', format:'ticken', hook:'Behauptung', thema:'Zu viel handeln', magazin:'', buch:false,
-  text:'Wer am meisten handelt, verdient am wenigsten. 🌿\n\nIn einer großen Studie mit über 66.000 Haushalten verdienten die, die am häufigsten kauften und verkauften, deutlich weniger als die, die ihre Anlagen in Ruhe ließen. Einrichten und laufen lassen ist oft die bessere Strategie.\n\nWie oft schaust du in dein Depot?',
+  text:'Wer am häufigsten an der Börse handelt, verdient am wenigsten. 🌿\n\nIn einer großen Studie mit über 66.000 Haushalten verdienten die, die am häufigsten kauften und verkauften, deutlich weniger als die, die ihre Anlagen in Ruhe ließen. Einrichten und laufen lassen ist oft die bessere Strategie.\n\nWie oft schaust du in dein Depot?',
   segs:[
-   { t:'hook', l1:'Wer am meisten handelt, verdient am wenigsten.', d:2.8 },
+   { t:'hook', l1:'Wer am häufigsten an der Börse handelt, verdient am wenigsten.', d:3 },
    { t:'text', h:'Die Studie', b:['Über 66.000 Haushalte, sechs Jahre lang.', 'Verglichen wurde, wie oft sie Aktien kauften und verkauften.'], d:4 },
    { t:'text', h:'Rendite pro Jahr', rows:['Selten gehandelt: 18,5 %','Am meisten gehandelt: 11,4 %'], rpx:60, q:'Barber und Odean, Journal of Finance, 2000 (dort in Dollar).', d:4.2 },
    { t:'text', b:['Der Grund: Kosten und Selbstüberschätzung.', 'Jeder Handel kostet. Und selten wissen wir es besser als der Markt.'], akzent:1, d:4 },
@@ -738,7 +739,7 @@ frageReel('r-frage22', '2026-11-21', 'Worauf verzichtest du leicht, worauf schwe
    { t:'text', h:'Keine Kontostände', b:['Der Check fragt nicht nach genauen Beträgen.', 'Du tippst an, was am ehesten passt.'] },
    { t:'ende', h:'Der Gelassenheits-Check. Kostenlos und ohne Anmeldung.', sub:'Link in der Bio.' },
   ]},
-frageReel('r-frage23', '2026-11-22', 'Was hat dich Geld über dich selbst gelehrt?', 'Was hat dich Geld über dich selbst gelehrt? 🌿\n\nWie wir mit Geld umgehen, verrät oft mehr über uns als über unser Konto.\n\nWas hast du über dich gelernt?'),
+frageReel('r-frage23', '2026-11-22', 'Für wie viel Geld würdest du deinen Job sofort kündigen?', 'Für wie viel Geld würdest du deinen Job sofort kündigen? 🌿\n\nDie Zahl sagt weniger über Geld als darüber, wie es dir in deinem Job geht.\n\nWie hoch ist deine?'),
 
 // ---------------- Montag, 23. November ----------------
 { id:'kurz07', datum:'2026-11-23', zeit:'07:30', typ:'karussell', format:'kurz', hook:'Frage', thema:'Wie viel für die Rente', magazin:'wie-viel-altersvorsorge', buch:false,
@@ -770,7 +771,7 @@ frageReel('r-frage23', '2026-11-22', 'Was hat dich Geld über dich selbst gelehr
    { t:'zwei', a:'Das Jetzt ist laut.', b:'Darum hilft es, gute Entscheidungen früh zu treffen.' },
    { t:'ende', h:'Wie entscheidest du?' },
   ]},
-frageReel('r-frage24', '2026-11-23', 'Wie soll sich Geld in zehn Jahren für dich anfühlen?', 'Wie soll sich Geld in zehn Jahren für dich anfühlen? 🌿\n\nNicht die Summe, sondern das Gefühl: ruhig, frei, sicher?\n\nWelches Wort passt für dich?'),
+frageReel('r-frage24', '2026-11-23', 'Würdest du deinen Kontostand deinen Freunden zeigen?', 'Würdest du deinen Kontostand deinen Freunden zeigen? 🌿\n\nGehalt, Miete, Urlaub: Darüber reden viele. Die eigene Zahl auf dem Konto bleibt meist geheim.\n\nWarum eigentlich?'),
 
 // ---------------- Anzeigen Hook-Test (nicht im Feed, Datum 'anzeige') ----------------
 { id:'h01', datum:'anzeige', zeit:'', typ:'reel', format:'ticken', hook:'Persönliche Frage', thema:'Hook-Test Vergleich', magazin:'', buch:false, endeText:'Hier lernst du Gelassenheit mit Geld.', endeDauer:1.8,

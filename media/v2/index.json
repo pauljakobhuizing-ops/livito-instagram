@@ -148,7 +148,7 @@
   "cover_ms": 1500
  },
  "r-frage18": {
-  "dur": 5,
+  "dur": 6,
   "cover_ms": 1000
  },
  "r-lieber14": {
@@ -172,7 +172,7 @@
   "cover_ms": 1500
  },
  "r-frage21": {
-  "dur": 5,
+  "dur": 6,
   "cover_ms": 1000
  },
  "stimmt09": {
@@ -180,15 +180,15 @@
   "cover_ms": 1500
  },
  "r-frage22": {
-  "dur": 5,
+  "dur": 6,
   "cover_ms": 1000
  },
  "r-ticken19": {
-  "dur": 19.6,
+  "dur": 19.8,
   "cover_ms": 1500
  },
  "r-frage23": {
-  "dur": 5,
+  "dur": 6,
   "cover_ms": 1000
  },
  "stimmt14": {
@@ -254,5 +254,9 @@
  "r-frage31": {
   "dur": 6,
   "cover_ms": 1000
+ },
+ "stimmt15": {
+  "dur": 14.4,
+  "cover_ms": 1500
  }
 }
